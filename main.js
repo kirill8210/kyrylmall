@@ -1,10 +1,10 @@
 const city = document.querySelector('.all_item');
+const detail = document.querySelector('.item_button');
 
 const createCard = (vacancy) =>{
     const { brand, id, size, price} = vacancy;
 
     const card = document.createElement('div');
-    //card.classList.add('item');
 
     card.insertAdjacentHTML('afterbegin', ` 
         <div class="item">
@@ -20,6 +20,24 @@ const createCard = (vacancy) =>{
     return card;
 };
 
+const createModal = (vacancy) =>{
+    const { id, description} = vacancy;
+
+    const modal = document.createElement('div');
+    const idEl = document.createElement('div');
+    idEl.textContent = id;
+    const descriptionEl = document.createElement('p');
+    descriptionEl.textContent = description;
+    const closeBtn = document.createElement('button');
+
+
+    modal.append(idEl, descriptionEl, closeBtn);
+
+    return modal;
+};
+
+//detail.addEventListener()
+
 
 const getData = () => {
     fetch('https://lit-cliffs-43895.herokuapp.com/api/vacancy')
@@ -33,6 +51,8 @@ const getData = () => {
 };
 
 getData();
+
+
 
 
 /*
