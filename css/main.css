@@ -59,10 +59,6 @@ body{
     font-size: 14px;
 }
 
-.item_id span:first-child, .item_size span:first-child, .item_price span:first-child{
-    font-style: italic;
-}
-
 .item_size{
     display: flex;
     justify-content: space-between;
@@ -93,8 +89,73 @@ body{
     background: #212121;
 }
 
- .item:hover{
+.item:hover{
     border: 1px solid #707070;
+}
+
+.details{
+    padding:30px;
+    display: none;
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
+}
+
+.details_active{
+    display: block;
+}
+
+.modal{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 40px 25px 30px;
+    background-color: #fff;
+    max-width: 400px;
+    border-radius: 10px;
+    cursor: auto;
+}
+
+.modal_close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    color: #ffffff;
+    background: #707070;
+    border: none;
+    border-radius: 5px;
+    transition: 0.3s ease-in;
+}
+
+.modal_close:hover{
+    background: #212121;
+}
+
+.details_img{
+    border-radius: 5px;
+}
+
+.details_item{
+    padding-top: 15px;
+}
+
+.details_item h2{
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.details_item div{
+    margin-top: 10px;
+    font-size: 14px;
 }
 
 .footer{
@@ -106,4 +167,10 @@ body{
 .footer h2{
     font-size: 24px;
     text-align: center;
+}
+
+@media (max-width: 560px) {
+    .modal{
+        width: 300px;
+    }
 }
