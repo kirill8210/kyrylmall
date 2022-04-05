@@ -7,20 +7,30 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Kyrylmall</title>
     <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/choices.min.css">
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/main.css">
+    <script src="js/choices.min.js"></script>
     <script src="main.js" defer></script>
 </head>
 <body>
 <header class="header">
     <div class="container">
-        <h2>KYRYLMALL</h2>
+        <h1>KYRYLMALL - магазин брендовых футболок</h1>
     </div>
 </header>
 <main>
     <div class="title">
         <div class="container">
-            <h1>Calvin Klein</h1>
+            <select name="brand" class="search_choices ice-cream">
+                <option value="">Выберите бренд</option>
+                <option value="Calvin Klein">Calvin Klein</option>
+                <option value="Guess">Guess</option>
+                <option value="Levis">Levis</option>
+                <option value="Puma">Puma</option>
+                <option value="Jack Jones">Jack Jones</option>
+            </select>
+            <h2 class="result"></h2>
         </div>
     </div>
     <section>
@@ -32,7 +42,7 @@
 <div class="details"></div>
 <footer class="footer">
     <div class="container">
-        <h2>KYRYLMALL</h2>
+        <h2>KYRYLMALL, 2020-2022</h2>
     </div>
 </footer>
 </body>

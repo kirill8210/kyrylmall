@@ -1,6 +1,43 @@
 const allItems = document.querySelector('.all_item');
 const modalItem = document.querySelector('.details');
+const element = document.querySelector('.search_choices');
 
+const choices = new Choices(element, {
+    searchEnabled: false,
+    itemSelectText: ''
+});
+
+const declOfNum = (n, titles) => {
+    return n + ' ' + titles[n % 10 === 1 && n % 100 !== 11 ?
+        0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
+};
+
+const result = document.querySelector('.title h2');
+const number = document.querySelector('.result span');
+let values = null;
+
+element.addEventListener('change', (e) => {
+    result.textContent = '';
+    allItems.textContent = '';
+    values = e.target.value;
+    if (values){
+        getLoadItem();
+    } else {
+        getData();
+    }
+
+});
+
+const getLoadItem = () => {
+    fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+        .then(response => response.json())
+        .then(data => {
+            const cards = data.filter((data) => values.includes(data.brand)).map(createCard);
+            allItems.append(...cards);
+            const nums = cards.length;
+            result.textContent = `найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${values}":`;
+        });
+};
 
 const getData = () => {
     fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
@@ -13,15 +50,14 @@ const getData = () => {
 
 getData();
 
-const getId = ({id} = {}) => {
-
+const getDataId = ({id} = {}) => {
     const URL = 'https://lit-cliffs-43895.herokuapp.com/api/vacancy';
     let url = `${URL}/${id ? id : '' }`;
 
     return fetch(url).then(response => response.json());
 };
 
-getId();
+getDataId();
 
 const createCard = (item) =>{
     const { brand, id, size, price} = item;
@@ -40,19 +76,7 @@ const createCard = (item) =>{
 
     return card;
 };
-/*
-*<div class="modal">
-        <img src="img/C020.jpg" class="details_img" alt="">
-        <div class="details_item">
-            <h2>Замеры:</h2>
-            <div>Размер S</div>
-            <div>Плечи 43см</div>
-            <div>Ширина подмышками 48см</div>
-            <div>Длина 70см</div>
-        </div>
-        <button class="modal_close" data-item="012">✕</button>
-    </div>composition,
-    * */
+
 const createModal = (data) =>{
     const { id, size, detailsW1, detailsW2, detailsH } = data;
 
@@ -98,7 +122,7 @@ const modalHandler = () => {
         if (target.dataset.item) {
             e.preventDefault();
             modalItem.classList.add('details_active');
-            const data = await getId({id: target.dataset.item});
+            const data = await getDataId({id: target.dataset.item});
             const modal = createModal(data);
             modalItem.append(modal);
         }
@@ -115,6 +139,7 @@ const modalHandler = () => {
 };
 
 modalHandler();
+
 
 
 
