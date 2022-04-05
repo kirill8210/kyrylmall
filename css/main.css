@@ -30,7 +30,7 @@ body{
 }
 
 .choices{
-    width: 650px;
+    width: 600px;
     margin: 0 auto;
 }
 
@@ -205,5 +205,8 @@ body{
 @media (max-width: 560px) {
     .modal{
         width: 300px;
+    }
+    .choices{
+        width: auto!important;
     }
 }
