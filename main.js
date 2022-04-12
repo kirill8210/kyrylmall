@@ -13,8 +13,67 @@ const declOfNum = (n, titles) => {
 };
 
 const result = document.querySelector('.title h2');
-const number = document.querySelector('.result span');
+const number = document.querySelector('.brand_result span');
 let values = null;
+
+const filterApply = document.getElementById('filter_apply');
+const filterReset = document.getElementById('filter_reset');
+const resetCheck = document.querySelectorAll('.filter_check input');
+
+function getCheckedBrand() {
+    return Array.from(document.querySelectorAll('#filter_brand input[type="checkbox"]'))
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value);
+}
+
+function getCheckedSize() {
+    return Array.from(document.querySelectorAll('#filter_size input[type="checkbox"]'))
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value);
+}
+
+function removeCheck() {
+    for(let i = 0; i < resetCheck.length; i++){
+        if(resetCheck[i].type === 'checkbox'){
+            resetCheck[i].checked = false;
+        }
+    }
+    return resetCheck;
+}
+
+filterReset.addEventListener('click', (e) => {
+    e.preventDefault();
+    removeCheck();
+    result.textContent = 'All t-shirt';
+    allItems.textContent = '';
+    getData();
+});
+
+filterApply.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if (getCheckedBrand().length !== 0){
+        if (getCheckedSize().length !== 0){
+            allItems.textContent = '';
+            getFilterSize();
+        } else {
+            result.textContent = 'Выберите размер';
+            allItems.textContent = '';
+            setTimeout (function () {
+                result.textContent = 'All t-shirt';
+                getData();
+            }, 1000);
+        }
+
+    } else{
+        result.textContent = 'Выберите бренд';
+        allItems.textContent = '';
+        setTimeout (function () {
+            result.textContent = 'All t-shirt';
+            getData();
+        }, 1000);
+    }
+});
 
 element.addEventListener('change', (e) => {
     result.textContent = '';
@@ -23,10 +82,44 @@ element.addEventListener('change', (e) => {
     if (values){
         getLoadItem();
     } else {
+        result.textContent = 'All t-shirt';
         getData();
     }
-
 });
+
+// const getFilterBrands = () => {
+//     fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+//         .then(response => response.json())
+//         .then(data => {
+//             const cards = data.filter((data) => getCheckedValues().includes(data.brand)).map(createCard);
+//             allItems.append(...cards);
+//             const nums = cards.length;
+//             result.textContent = `найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${getCheckedValues()}":`;
+//         });
+// };
+
+// const getFilterSize = () => {
+//     fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+//         .then(response => response.json())
+//         .then(data => {
+//             const cards = data.filter(data => data.size.some(i => getCheckedValues2().includes(i))).map(createCard);
+//             allItems.append(...cards);
+//             const nums = cards.length;
+//             result.textContent = `найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${getCheckedValues()}":`;
+//         });
+// };
+
+
+const getFilterSize = () => {
+    fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+        .then(response => response.json())
+        .then(data => {
+            const cards = data.filter((data) => getCheckedBrand().includes(data.brand)).filter(data => data.size.some(i => getCheckedSize().includes(i))).map(createCard);
+            allItems.append(...cards);
+            const nums = cards.length;
+            result.textContent = `Найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${getCheckedBrand()}":`;
+        });
+};
 
 const getLoadItem = () => {
     fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
@@ -43,9 +136,11 @@ const getData = () => {
     fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
         .then(response => response.json())
         .then(data => {
+            //console.log(Object.values(data[0].size));
             const cards = data.map(createCard);
             allItems.append(...cards);
         });
+
 };
 
 getData();
@@ -68,7 +163,7 @@ const createCard = (item) =>{
             <img src="img/${id}.jpg" class="item_img" alt="C001">
             <div class="item_brand">${brand}</div>
             <div class="item_id"><span>Артикул: </span><span>${id}</span></div>
-            <div class="item_size"><span>Размер: </span><span>${size}</span></div>           
+            <div class="item_size"><span>Размер: </span><span>${size.join(', ')}</span></div>           
             <div class="item_price"><span>Цена: </span><span>${price} грн</span></div>
             <button class="item_button" data-item="${id}">Подробнее</button>
         </div>         
@@ -139,10 +234,6 @@ const modalHandler = () => {
 };
 
 modalHandler();
-
-
-
-
 
 
 
