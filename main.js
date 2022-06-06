@@ -259,304 +259,41 @@ modalHandler();
         "employment": "",
         "skills": ""
     },
-    {
-        "id": "C011",
-        "brand": "Calvin Klein",
-        "price": "825",
-        "size": "S",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C012",
-        "brand": "Calvin Klein",
-        "price": "775",
-        "size": "S, M",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C013",
-        "brand": "Calvin Klein",
-        "price": "825",
-        "size": "M",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C014",
-        "brand": "Calvin Klein",
-        "price": "825",
-        "size": "XS, S",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C020",
-        "brand": "Calvin Klein",
-        "price": "1150",
-        "size": "M",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C022",
-        "brand": "Calvin Klein",
-        "price": "985",
-        "size": "M, L",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C023",
-        "brand": "Calvin Klein",
-        "price": "875",
-        "size": "M",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C024",
-        "brand": "Calvin Klein",
-        "price": "750",
-        "size": "M",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C028",
-        "brand": "Calvin Klein",
-        "price": "875",
-        "size": "M",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C030",
-        "brand": "Calvin Klein",
-        "price": "925",
-        "size": "M",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C033",
-        "brand": "Calvin Klein",
-        "price": "925",
-        "size": "M",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C034",
-        "brand": "Calvin Klein",
-        "price": "825",
-        "size": "S, M",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C036",
-        "brand": "Calvin Klein",
-        "price": "825",
-        "size": "S",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C038",
-        "brand": "Calvin Klein",
-        "price": "975",
-        "size": "L",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C039",
-        "brand": "Calvin Klein",
-        "price": "775",
-        "size": "S",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C040",
-        "brand": "Calvin Klein",
-        "price": "875",
-        "size": "S",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C041",
-        "brand": "Calvin Klein",
-        "price": "975",
-        "size": "S",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C042",
-        "brand": "Calvin Klein",
-        "price": "975",
-        "size": "M, L",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C050",
-        "brand": "Calvin Klein",
-        "price": "875",
-        "size": "L",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    },
-    {
-        "id": "C051",
-        "brand": "Calvin Klein",
-        "price": "1150",
-        "size": "S, M, L",
-    "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-    "date": "30/03/2022",
-    "employer": "HFLabs",
-    "country": "calvin klein",
-    "employment": "",
-    "skills": ""
-    }
+const getFilterSize = () => {
+
+    fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+        .then(response => response.json())
+        .then(data => {
+            const arr1 = ['Calvin Klein', 'Guess', 'Levis', 'Puma', 'Jack Jones'];
+            const arr3 = ['S', 'M', 'L'];
+            let arr2 = [];
+            let arr4 = [];
+            if (getCheckedBrand().length !== 0){
+                arr2 = getCheckedBrand();
+            } else{
+                arr2 = getCheckedBrand().concat(arr1);
+            }
+            if (getCheckedSize().length !== 0){
+                arr4 = getCheckedSize();
+            } else{
+                arr4 = getCheckedSize().concat(arr3);
+            }
+            const cards = data.filter((data) => arr2.includes(data.brand)).filter(data => data.size.some(i => arr4.includes(i))).map(createCard);
+            allItems.append(...cards);
+            const nums = cards.length;
+            result.textContent = `Найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${arr2}":`;
+        });
+};
+
+const getLoadItem = () => {
+    fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+        .then(response => response.json())
+        .then(data => {
+            const cards = data.filter((data) => values.includes(data.brand)).map(createCard);
+            allItems.append(...cards);
+            const nums = cards.length;
+            result.textContent = `найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${values}":`;
+        });
+};
+
 ]*/
