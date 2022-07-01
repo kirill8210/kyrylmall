@@ -164,7 +164,7 @@ const createCard = (item) =>{
             <div class="item_brand">${brand}</div>
             <div class="item_id"><span>Артикул: </span><span>${id}</span></div>
             <div class="item_size"><span>Размер: </span><span>${size.join(', ')}</span></div>           
-            <div class="item_price"><span>Цена: </span><span>${price} грн</span></div>
+            <div class="item_price"><span>Цена: </span><span>${price}</span></div>
             <button class="item_button" data-item="${id}">Подробнее</button>
         </div>         
     `);
