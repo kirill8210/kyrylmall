@@ -2,10 +2,10 @@ const allItems = document.querySelector('.all_item');
 const modalItem = document.querySelector('.details');
 const element = document.querySelector('.search_choices');
 
-const choices = new Choices(element, {
-    searchEnabled: false,
-    itemSelectText: ''
-});
+// const choices = new Choices(element, {
+//     searchEnabled: false,
+//     itemSelectText: ''
+// });
 
 const declOfNum = (n, titles) => {
     return n + ' ' + titles[n % 10 === 1 && n % 100 !== 11 ?
@@ -75,40 +75,18 @@ filterApply.addEventListener('click', (e) => {
     }
 });
 
-element.addEventListener('change', (e) => {
-    result.textContent = '';
-    allItems.textContent = '';
-    values = e.target.value;
-    if (values){
-        getLoadItem();
-    } else {
-        result.textContent = 'All t-shirt';
-        getData();
-    }
-});
-
-// const getFilterBrands = () => {
-//     fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
-//         .then(response => response.json())
-//         .then(data => {
-//             const cards = data.filter((data) => getCheckedValues().includes(data.brand)).map(createCard);
-//             allItems.append(...cards);
-//             const nums = cards.length;
-//             result.textContent = `найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${getCheckedValues()}":`;
-//         });
-// };
-
-// const getFilterSize = () => {
-//     fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
-//         .then(response => response.json())
-//         .then(data => {
-//             const cards = data.filter(data => data.size.some(i => getCheckedValues2().includes(i))).map(createCard);
-//             allItems.append(...cards);
-//             const nums = cards.length;
-//             result.textContent = `найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${getCheckedValues()}":`;
-//         });
-// };
-
+// change
+// element.addEventListener('change', (e) => {
+//     result.textContent = '';
+//     allItems.textContent = '';
+//     values = e.target.value;
+//     if (values){
+//         getLoadItem();
+//     } else {
+//         result.textContent = 'All t-shirt';
+//         getData();
+//     }
+// });
 
 const getFilterSize = () => {
     fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
@@ -154,8 +132,8 @@ const getDataId = ({id} = {}) => {
 
 getDataId();
 
-const createCard = (item) =>{
-    const { brand, id, size, price} = item;
+const createCard = (data) =>{
+    const { brand, id, size, price} = data;
 
     const card = document.createElement('div');
     card.insertAdjacentHTML('afterbegin', ` 
@@ -235,65 +213,194 @@ const modalHandler = () => {
 
 modalHandler();
 
+// filters
+
+const btnReset = document.querySelectorAll('.btn_delete');
+const btnApply = document.querySelectorAll('.btn_apply');
+const filterCheck = document.querySelectorAll('.filters_list input');
+
+// filterLabel.forEach(filter =>
+//     filter.addEventListener('click', () => {
+//         if (filter){
+//             // filterList.classList.remove('filters_active')
+//             filter.nextElementSibling.classList.toggle('filters_active');
+//         } else {
+//             filter.nextElementSibling.classList.toggle('filters_active');
+//         }
+//     })
+// );
 
 
+// menu desctop
+// const filters = document.querySelectorAll('.filters');
+// for (const filter of filters) {
+//     const filterItems = filter.querySelectorAll('.filters_item');
+//     for (const filterItem of filterItems) {
+//         const filtersLabel = filterItem.querySelector('.filters_label');
+//         filtersLabel.addEventListener('click', () => {
+//             for (const otherfilterItems of filterItems) {
+//                 if (otherfilterItems !== filterItem) {
+//                     otherfilterItems.classList.remove('filters_active');
+//                 }
+//             }
+//             filterItem.classList.toggle('filters_active');
+//         });
+//     }
+// }
 
-/*
-[
-    {
-        "id": "C004",
-        "brand": "Calvin Klein",
-        "price": "775",
-        "size": "M",
-        "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-        "composition": "100% хлопок",
-        "detailsW1": "43",
-        "detailsW2": "48",
-        "detailsH": "70",
-        "date": "30/03/2022",
-        "employer": "HFLabs",
-        "country": "calvin klein",
-        "employment": "",
-        "skills": ""
-    },
-const getFilterSize = () => {
+function removeFilterCheck() {
+    for(let i = 0; i < filterCheck.length; i++){
+        if(filterCheck[i].type === 'checkbox'){
+            filterCheck[i].checked = false;
+        }
+    }
+    return filterCheck;
+}
 
+btnReset.forEach(filter =>
+    filter.addEventListener('click', () => {
+        removeFilterCheck();
+        filterBlock.style.display = 'none'
+        filter.closest('.open').classList.remove('open');
+        allItems.textContent = '';
+        result.textContent = 'All t-shirt';
+        getData();
+        filter.closest('.filters_active').classList.remove('filters_active');
+    })
+);
+
+function getFilterBrand() {
+    const checkerBrand = document.querySelectorAll('#filterBrand input[type="checkbox"] ')
+    const arrayBrand = ['Calvin Klein', 'Guess', 'Levis', 'Puma', 'Jack Jones']
+    const arrayCheckerBrand = Array.from(checkerBrand).filter((checkbox) => checkbox.checked)
+
+    if (arrayCheckerBrand.length > 0){
+        return arrayCheckerBrand.map((checkbox) => checkbox.value);
+    } else {
+        return arrayBrand
+    }
+}
+
+function getFiltersSize() {
+    const checkerSize = document.querySelectorAll('#filterSize input[type="checkbox"] ')
+    const arraySize = ['S', 'M', 'L']
+    const arrayCheckerSize = Array.from(checkerSize).filter((checkbox) => checkbox.checked)
+
+    if (arrayCheckerSize.length > 0){
+        return arrayCheckerSize.map((checkbox) => checkbox.value);
+    } else {
+        return arraySize
+    }
+}
+
+function getFilterColor() {
+    const checkerColor = document.querySelectorAll('#filterColor input[type="checkbox"] ')
+    const arrayColor = ['black', 'white', 'blue', 'red', 'grey', 'orange', 'yellow']
+    const arrayCheckerColor = Array.from(checkerColor).filter((checkbox) => checkbox.checked)
+
+    if (arrayCheckerColor.length > 0){
+        return arrayCheckerColor.map((checkbox) => checkbox.value);
+    } else {
+        return arrayColor
+    }
+}
+
+const getFilters = () => {
     fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
         .then(response => response.json())
         .then(data => {
-            const arr1 = ['Calvin Klein', 'Guess', 'Levis', 'Puma', 'Jack Jones'];
-            const arr3 = ['S', 'M', 'L'];
-            let arr2 = [];
-            let arr4 = [];
-            if (getCheckedBrand().length !== 0){
-                arr2 = getCheckedBrand();
-            } else{
-                arr2 = getCheckedBrand().concat(arr1);
-            }
-            if (getCheckedSize().length !== 0){
-                arr4 = getCheckedSize();
-            } else{
-                arr4 = getCheckedSize().concat(arr3);
-            }
-            const cards = data.filter((data) => arr2.includes(data.brand)).filter(data => data.size.some(i => arr4.includes(i))).map(createCard);
+
+            const cards = data
+                .filter( data => getFilterBrand().includes(data.brand))
+                .filter(data => data.size.some(i => getFiltersSize().includes(i)))
+                .filter( data => getFilterColor().includes(data.color))
+                .map(createCard)
+
             allItems.append(...cards);
+
             const nums = cards.length;
-            result.textContent = `Найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${arr2}":`;
+            result.textContent = `Найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${getFilterBrand()}":`;
         });
 };
 
-const getLoadItem = () => {
-    fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
-        .then(response => response.json())
-        .then(data => {
-            const cards = data.filter((data) => values.includes(data.brand)).map(createCard);
-            allItems.append(...cards);
-            const nums = cards.length;
-            result.textContent = `найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${values}":`;
-        });
-};
+btnApply.forEach(filter =>
+    filter.addEventListener('click', (e) => {
+        e.preventDefault();
 
-]*/
+        filterBlock.style.display = 'none'
+        filter.closest('.open').classList.remove('open');
+        allItems.textContent = '';
+        getFilters();
+
+        filter.closest('.filters_active').classList.remove('filters_active');
+    })
+);
+
+
+// if(getFilters()){
+//     allItems.textContent = '';
+//     getFilters();
+// } else{
+//     result.textContent = 'Выберите размер';
+//     allItems.textContent = '';
+//     setTimeout (function () {
+//         result.textContent = 'All t-shirt';
+//         getData();
+//     }, 1000);
+// }
+
+
+if (document.documentElement.clientWidth < 992) {
+
+} else {
+
+}
+const menu = document.querySelectorAll('.menu_link');
+const MenuClose = document.querySelectorAll('.menu_item_link');
+for ( let i = 0; i < menu.length; i++ ) {
+    const subMenu = menu[i].nextElementSibling;
+    menu[i].addEventListener('click', () => {
+        subMenu.classList.add('open');
+    });
+    MenuClose[i].addEventListener('click', () => {
+        subMenu.classList.remove('open');
+    });
+}
+
+const accordions = document.querySelectorAll('.submenu');
+for (const accordion of accordions) {
+    const panels = accordion.querySelectorAll('.submenu_item');
+    for (const panel of panels) {
+        const head = panel.querySelector('.submenu_item_link');
+        head.addEventListener('click', () => {
+            for (const otherPanel of panels) {
+                if (otherPanel !== panel) {
+                    otherPanel.classList.remove('submenu_open');
+                }
+            }
+            panel.classList.toggle('submenu_open');
+        });
+    }
+}
+
+const menu1 = document.querySelectorAll('.filters_label');
+const MenuClose1 = document.querySelectorAll('.block');
+for ( let i = 0; i < menu1.length; i++ ) {
+    const subMenu1 = menu1[i].nextElementSibling;
+    menu1[i].addEventListener('click', () => {
+        subMenu1.classList.add('open');
+    });
+    MenuClose1[i].addEventListener('click', () => {
+        subMenu1.classList.remove('open');
+    });
+}
+
+const openFilter = document.querySelector('.filter_xs')
+const openFilters = document.querySelector('.filter_x')
+const filterBlock = document.querySelector('.filter_block')
+openFilter.addEventListener('click', () =>{
+    filterBlock.style.display = 'flex'
+})
+openFilters.addEventListener('click', () =>{
+    filterBlock.style.display = 'none'
+})
