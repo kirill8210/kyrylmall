@@ -232,21 +232,21 @@ const filterCheck = document.querySelectorAll('.filters_list input');
 
 
 // menu desctop
-// const filters = document.querySelectorAll('.filters');
-// for (const filter of filters) {
-//     const filterItems = filter.querySelectorAll('.filters_item');
-//     for (const filterItem of filterItems) {
-//         const filtersLabel = filterItem.querySelector('.filters_label');
-//         filtersLabel.addEventListener('click', () => {
-//             for (const otherfilterItems of filterItems) {
-//                 if (otherfilterItems !== filterItem) {
-//                     otherfilterItems.classList.remove('filters_active');
-//                 }
-//             }
-//             filterItem.classList.toggle('filters_active');
-//         });
-//     }
-// }
+const filters = document.querySelectorAll('.filters');
+for (const filter of filters) {
+    const filterItems = filter.querySelectorAll('.filters_item');
+    for (const filterItem of filterItems) {
+        const filtersLabel = filterItem.querySelector('.filters_label');
+        filtersLabel.addEventListener('click', () => {
+            for (const otherfilterItems of filterItems) {
+                if (otherfilterItems !== filterItem) {
+                    otherfilterItems.classList.remove('filters_active');
+                }
+            }
+            filterItem.classList.toggle('filters_active');
+        });
+    }
+}
 
 function removeFilterCheck() {
     for(let i = 0; i < filterCheck.length; i++){
@@ -260,8 +260,12 @@ function removeFilterCheck() {
 btnReset.forEach(filter =>
     filter.addEventListener('click', () => {
         removeFilterCheck();
-        filterBlock.style.display = 'none'
-        filter.closest('.open').classList.remove('open');
+
+        if (document.documentElement.clientWidth < 992) {
+            filterBlock.style.display = 'none'
+            filter.closest('.open').classList.remove('open');
+        }
+
         allItems.textContent = '';
         result.textContent = 'All t-shirt';
         getData();
@@ -323,12 +327,18 @@ const getFilters = () => {
         });
 };
 
+const filterBlock = document.querySelector('.filter_block')
 btnApply.forEach(filter =>
     filter.addEventListener('click', (e) => {
         e.preventDefault();
 
-        filterBlock.style.display = 'none'
-        filter.closest('.open').classList.remove('open');
+
+        if (document.documentElement.clientWidth < 992) {
+            filterBlock.style.display = 'none'
+            filter.closest('.open').classList.remove('open');
+        }
+
+
         allItems.textContent = '';
         getFilters();
 
@@ -352,9 +362,9 @@ btnApply.forEach(filter =>
 
 if (document.documentElement.clientWidth < 992) {
 
-} else {
 
-}
+
+
 const menu = document.querySelectorAll('.menu_link');
 const MenuClose = document.querySelectorAll('.menu_item_link');
 for ( let i = 0; i < menu.length; i++ ) {
@@ -404,3 +414,5 @@ openFilter.addEventListener('click', () =>{
 openFilters.addEventListener('click', () =>{
     filterBlock.style.display = 'none'
 })
+
+}
