@@ -425,6 +425,35 @@ body{
     transition: 0.5s opacity, 0.5s visibility;
 }
 
+.filter_sort .filters_list_block{
+    right: 0;
+    left: auto;
+}
+
+.filter_sort .filters_active .filters_list_block{
+    right: 0;
+    left: auto;
+    opacity: 1;
+    visibility: visible;
+}
+
+.option__item_active:before {
+    display: inline-block;
+    position: absolute;
+    content: "";
+    /*top: 12px;*/
+    /*left: 13px;*/
+    /*width: 11px;*/
+    /*height: 10px;*/
+    right: 22px;
+    top: 4px;
+    width: 6px;
+    height: 10px;
+    border: solid #212121;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
 .filters_active .filters_list_block{
     opacity: 1;
     visibility: visible;
@@ -611,6 +640,10 @@ body{
 }
 
 @media screen and (max-width: 992px) {
+
+    .filter_sort{
+        display: none;
+    }
     .menu{
         background: #fff;
         /*display: flex!important;*/
@@ -1018,10 +1051,10 @@ body{
         top: 10px;
     }
 
-    .filter_sort{
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
+    /*.filter_sort{*/
+    /*    position: absolute;*/
+    /*    top: 0;*/
+    /*    right: 0;*/
+    /*}*/
 
 }

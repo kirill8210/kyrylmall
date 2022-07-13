@@ -2,6 +2,9 @@ const allItems = document.querySelector('.all_item');
 const modalItem = document.querySelector('.details');
 const element = document.querySelector('.search_choices');
 
+
+const orderBy = document.querySelector('#order_by');
+
 // const choices = new Choices(element, {
 //     searchEnabled: false,
 //     itemSelectText: ''
@@ -114,11 +117,10 @@ const getData = () => {
     fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
         .then(response => response.json())
         .then(data => {
-            //console.log(Object.values(data[0].size));
+            sortData(data)
             const cards = data.map(createCard);
             allItems.append(...cards);
         });
-
 };
 
 getData();
@@ -219,18 +221,6 @@ const btnReset = document.querySelectorAll('.btn_delete');
 const btnApply = document.querySelectorAll('.btn_apply');
 const filterCheck = document.querySelectorAll('.filters_list input');
 
-// filterLabel.forEach(filter =>
-//     filter.addEventListener('click', () => {
-//         if (filter){
-//             // filterList.classList.remove('filters_active')
-//             filter.nextElementSibling.classList.toggle('filters_active');
-//         } else {
-//             filter.nextElementSibling.classList.toggle('filters_active');
-//         }
-//     })
-// );
-
-
 // menu desctop
 const filters = document.querySelectorAll('.filters');
 for (const filter of filters) {
@@ -268,6 +258,8 @@ btnReset.forEach(filter =>
 
         allItems.textContent = '';
         result.textContent = 'All t-shirt';
+        sortTitleLabel.textContent = 'сортировка';
+        orderBy.value = 'date';
         getData();
         filter.closest('.filters_active').classList.remove('filters_active');
     })
@@ -313,7 +305,7 @@ const getFilters = () => {
     fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
         .then(response => response.json())
         .then(data => {
-
+            sortData(data)
             const cards = data
                 .filter( data => getFilterBrand().includes(data.brand))
                 .filter(data => data.size.some(i => getFiltersSize().includes(i)))
@@ -332,12 +324,10 @@ btnApply.forEach(filter =>
     filter.addEventListener('click', (e) => {
         e.preventDefault();
 
-
         if (document.documentElement.clientWidth < 992) {
             filterBlock.style.display = 'none'
             filter.closest('.open').classList.remove('open');
         }
-
 
         allItems.textContent = '';
         getFilters();
@@ -345,6 +335,47 @@ btnApply.forEach(filter =>
         filter.closest('.filters_active').classList.remove('filters_active');
     })
 );
+
+const sortData = (data) =>{
+
+    switch (orderBy.value) {
+        case 'up':
+            data.sort((a, b) => a.price > b.price ? 1 : -1);
+            break;
+        case 'down':
+            data.sort((a, b) => b.price > a.price ? 1 : -1);
+            break;
+        default:
+            data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    }
+
+};
+
+const sortBlock = document.querySelector('.filter_sort .filters_item');
+const sortTitleLabel = document.querySelector('.filters_label_sort');
+const sortList = document.querySelector('.filters_list_sort');
+
+sortList.addEventListener('click', (e) =>{
+    const target = e.target;
+
+    if (target.classList.contains('filters_list_item_sort')){
+        sortTitleLabel.textContent = target.textContent;
+        orderBy.value = target.dataset.sort;
+
+        allItems.textContent = '';
+        getFilters();
+
+        sortBlock.classList.remove('filters_active');
+        for (const el of sortList.querySelectorAll('.filters_list_item_sort')){
+            if (el === target){
+                el.classList.add('option__item_active');
+            } else {
+                el.classList.remove('option__item_active')
+            }
+        }
+    }
+});
+
 
 
 // if(getFilters()){
@@ -361,10 +392,7 @@ btnApply.forEach(filter =>
 
 
 if (document.documentElement.clientWidth < 992) {
-
-
-
-
+/*
 const menu = document.querySelectorAll('.menu_link');
 const MenuClose = document.querySelectorAll('.menu_item_link');
 for ( let i = 0; i < menu.length; i++ ) {
@@ -392,8 +420,8 @@ for (const accordion of accordions) {
         });
     }
 }
-
-const menu1 = document.querySelectorAll('.filters_label');
+*/
+const menu1 = document.querySelectorAll('#filters .filters_label');
 const MenuClose1 = document.querySelectorAll('.block');
 for ( let i = 0; i < menu1.length; i++ ) {
     const subMenu1 = menu1[i].nextElementSibling;

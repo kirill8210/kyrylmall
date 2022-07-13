@@ -197,36 +197,24 @@
             </div>
         </div>
     </div>
-    <div class="filter_sort">
-<!--        <div class="filters_item">-->
-<!--            <div class="filters_label">сортировка<i class="i_right"></i></div>-->
-<!--            <div class="filters_list_block">-->
-<!--                <div class="filters_list" id="filterSort">-->
-<!--                    <div class="block">-->
-<!--                        <a href="#"><i class="i_left"></i>block</a>-->
-<!--                    </div>-->
-<!--                    <label class="filters_list_item">-->
-<!--                        <p>Цена по возрастанию</p>-->
-<!--                        <input type="checkbox" value="Цена по возрастанию" name="sort">-->
-<!--                        <span></span>-->
-<!--                    </label>-->
-<!--                    <label class="filters_list_item">-->
-<!--                        <p>Цена по убыванию</p>-->
-<!--                        <input type="checkbox" value="Цена по убыванию" name="sort">-->
-<!--                        <span></span>-->
-<!--                    </label>-->
-<!--                    <label class="filters_list_item">-->
-<!--                        <p>Новинки</p>-->
-<!--                        <input type="checkbox" value="Новинки" name="sort">-->
-<!--                        <span></span>-->
-<!--                    </label>-->
-<!--                </div>-->
-<!--                <div class="filters_apply">-->
-<!--                    <button class="btn_delete">Reset</button>-->
-<!--                    <button class="btn_apply">Apply</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+    <div class="filters filter_sort">
+        <div class="filters_item">
+            <div class="filters_label filters_label_sort">сортировка</div>
+            <input type="hidden" id="order_by" name="order_by" value="date">
+            <div class="filters_list_block">
+                <div class="filters_list filters_list_sort" id="filterSort">
+                    <label class="filters_list_item filters_list_item_sort" data-sort="up">
+                        Цена по возрастанию
+                    </label>
+                    <label class="filters_list_item filters_list_item_sort" data-sort="down">
+                        Цена по убыванию
+                    </label>
+                    <label class="filters_list_item filters_list_item_sort" data-sort="date">
+                        Новинки
+                    </label>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
