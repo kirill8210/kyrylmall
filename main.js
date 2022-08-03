@@ -389,8 +389,8 @@ sortList.addEventListener('click', (e) =>{
 //         getData();
 //     }, 1000);
 // }
-
-
+const a = [1, 2, 3].filter(item => item === 777)
+console.log(a)
 if (document.documentElement.clientWidth < 992) {
 /*
 const menu = document.querySelectorAll('.menu_link');
