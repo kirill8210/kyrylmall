@@ -92,7 +92,7 @@ filterApply.addEventListener('click', (e) => {
 // });
 
 const getFilterSize = () => {
-    fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+    fetch('https://kirill8210.github.io/api_kyrylmall/db.json')
         .then(response => response.json())
         .then(data => {
             const cards = data.filter((data) => getCheckedBrand().includes(data.brand)).filter(data => data.size.some(i => getCheckedSize().includes(i))).map(createCard);
@@ -103,7 +103,7 @@ const getFilterSize = () => {
 };
 
 const getLoadItem = () => {
-    fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+    fetch('https://kirill8210.github.io/api_kyrylmall/db.json')
         .then(response => response.json())
         .then(data => {
             const cards = data.filter((data) => values.includes(data.brand)).map(createCard);
@@ -114,7 +114,7 @@ const getLoadItem = () => {
 };
 
 const getData = () => {
-    fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+    fetch('https://kirill8210.github.io/api_kyrylmall/db.json')
         .then(response => response.json())
         .then(data => {
             sortData(data)
@@ -126,7 +126,7 @@ const getData = () => {
 getData();
 
 const getDataId = ({id} = {}) => {
-    const URL = 'https://lit-cliffs-43895.herokuapp.com/api/vacancy';
+    const URL = 'https://kirill8210.github.io/api_kyrylmall/db.json';
     let url = `${URL}/${id ? id : '' }`;
 
     return fetch(url).then(response => response.json());
@@ -302,7 +302,7 @@ function getFilterColor() {
 }
 
 const getFilters = () => {
-    fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+    fetch('https://kirill8210.github.io/api_kyrylmall/db.json')
         .then(response => response.json())
         .then(data => {
             sortData(data)
