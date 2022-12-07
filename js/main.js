@@ -56,31 +56,31 @@ filterReset.addEventListener('click', (e) => {
     getData();
 });
 
-filterApply.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    if (getCheckedBrand().length !== 0){
-        if (getCheckedSize().length !== 0){
-            allItems.textContent = '';
-            getFilterSize();
-        } else {
-            result.textContent = 'Выберите размер';
-            allItems.textContent = '';
-            setTimeout (function () {
-                result.textContent = 'All t-shirt';
-                getData();
-            }, 1000);
-        }
-
-    } else{
-        result.textContent = 'Выберите бренд';
-        allItems.textContent = '';
-        setTimeout (function () {
-            result.textContent = 'All t-shirt';
-            getData();
-        }, 1000);
-    }
-});
+// filterApply.addEventListener('click', (e) => {
+//     e.preventDefault();
+//
+//     if (getCheckedBrand().length !== 0){
+//         if (getCheckedSize().length !== 0){
+//             allItems.textContent = '';
+//             getFilterSize();
+//         } else {
+//             result.textContent = 'Выберите размер';
+//             allItems.textContent = '';
+//             setTimeout (function () {
+//                 result.textContent = 'All t-shirt';
+//                 getData();
+//             }, 1000);
+//         }
+//
+//     } else{
+//         result.textContent = 'Выберите бренд';
+//         allItems.textContent = '';
+//         setTimeout (function () {
+//             result.textContent = 'All t-shirt';
+//             getData();
+//         }, 1000);
+//     }
+// });
 
 // change
 // element.addEventListener('change', (e) => {
@@ -95,32 +95,33 @@ filterApply.addEventListener('click', (e) => {
 //     }
 // });
 
-const getFilterSize = () => {
-    fetch(apiT)
-        .then(response => response.json())
-        .then(data => {
-            const cards = data.filter((data) => getCheckedBrand().includes(data.brand)).filter(data => data.size.some(i => getCheckedSize().includes(i))).map(createCard);
-            allItems.append(...cards);
-            const nums = cards.length;
-            result.textContent = `Найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${getCheckedBrand()}":`;
-        });
-};
-
-const getLoadItem = () => {
-    fetch(apiT)
-        .then(response => response.json())
-        .then(data => {
-            const cards = data.filter((data) => values.includes(data.brand)).map(createCard);
-            allItems.append(...cards);
-            const nums = cards.length;
-            result.textContent = `найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${values}":`;
-        });
-};
+// const getFilterSize = () => {
+//     fetch(apiT)
+//         .then(response => response.json())
+//         .then(data => {
+//             const cards = data.filter((data) => getCheckedBrand().includes(data.brand)).filter(data => data.size.some(i => getCheckedSize().includes(i))).map(createCard);
+//             allItems.append(...cards);
+//             const nums = cards.length;
+//             result.textContent = `Найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${getCheckedBrand()}":`;
+//         });
+// };
+//
+// const getLoadItem = () => {
+//     fetch(apiT)
+//         .then(response => response.json())
+//         .then(data => {
+//             const cards = data.filter((data) => values.includes(data.brand)).map(createCard);
+//             allItems.append(...cards);
+//             const nums = cards.length;
+//             result.textContent = `найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${values}":`;
+//         });
+// };
 
 const getData = () => {
-    fetch(apiT)
+    fetch('https://kirill8210.github.io/api_kyrylmall/db.json')
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             sortData(data)
             const cards = data.map(createCard);
             allItems.append(...cards);
@@ -129,14 +130,14 @@ const getData = () => {
 
 getData();
 
-const getDataId = ({id} = {}) => {
-    const URL = 'https://lit-cliffs-43895.herokuapp.com/api/vacancy';
-    let url = `${apiT}/${id ? id : '' }`;
-
-    return fetch(url).then(response => response.json());
-};
-
-getDataId();
+// const getDataId = ({id} = {}) => {
+//     const URL = 'https://lit-cliffs-43895.herokuapp.com/api/vacancy';
+//     let url = `${apiT}/${id ? id : '' }`;
+//
+//     return fetch(url).then(response => response.json());
+// };
+//
+// getDataId();
 
 const createCard = (data) =>{
     const { brand, id, size, price} = data;
