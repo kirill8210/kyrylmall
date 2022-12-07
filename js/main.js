@@ -1,3 +1,7 @@
+import apiT from './api.js';
+
+console.log(apiT)
+
 const allItems = document.querySelector('.all_item');
 const modalItem = document.querySelector('.details');
 const element = document.querySelector('.search_choices');
@@ -92,7 +96,7 @@ filterApply.addEventListener('click', (e) => {
 // });
 
 const getFilterSize = () => {
-    fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+    fetch(apiT)
         .then(response => response.json())
         .then(data => {
             const cards = data.filter((data) => getCheckedBrand().includes(data.brand)).filter(data => data.size.some(i => getCheckedSize().includes(i))).map(createCard);
@@ -103,7 +107,7 @@ const getFilterSize = () => {
 };
 
 const getLoadItem = () => {
-    fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+    fetch(apiT)
         .then(response => response.json())
         .then(data => {
             const cards = data.filter((data) => values.includes(data.brand)).map(createCard);
@@ -114,7 +118,7 @@ const getLoadItem = () => {
 };
 
 const getData = () => {
-    fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+    fetch(apiT)
         .then(response => response.json())
         .then(data => {
             sortData(data)
@@ -127,7 +131,7 @@ getData();
 
 const getDataId = ({id} = {}) => {
     const URL = 'https://lit-cliffs-43895.herokuapp.com/api/vacancy';
-    let url = `${URL}/${id ? id : '' }`;
+    let url = `${apiT}/${id ? id : '' }`;
 
     return fetch(url).then(response => response.json());
 };
@@ -389,8 +393,7 @@ sortList.addEventListener('click', (e) =>{
 //         getData();
 //     }, 1000);
 // }
-const a = [1, 2, 3].filter(item => item === 777)
-console.log(a)
+
 if (document.documentElement.clientWidth < 992) {
 /*
 const menu = document.querySelectorAll('.menu_link');
