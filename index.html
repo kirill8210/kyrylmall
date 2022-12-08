@@ -7,15 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Kyrylmall</title>
     <link rel="stylesheet" href="css/normalize.css">
-<!--    <link rel="stylesheet" href="css/choices.min.css">-->
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/main.css">
-<!--    <script src="js/choices.min.js"></script>-->
     <script src="js/main.js" type="module"></script>
 </head>
 <body>
 <header class="header">
-    <h1>KYRYLMALL - магазин брендовых футболок</h1>
+    <h1>KYRYLMALL - магазин брендових футболок</h1>
     <div class="menu">
         <div class="catalog">
             <a href="#" class="menu_link">Catalog<i class="i_right"></i></a>
@@ -67,157 +65,125 @@
 <main>
     <div class="title">
         <div class="container">
-<!--            <select name="brand" class="search_choices ice-cream">-->
-<!--                <option value="">Выберите бренд</option>-->
-<!--                <option value="Calvin Klein">Calvin Klein</option>-->
-<!--                <option value="Guess">Guess</option>-->
-<!--                <option value="Levis">Levis</option>-->
-<!--                <option value="Puma">Puma</option>-->
-<!--                <option value="Jack Jones">Jack Jones</option>-->
-<!--            </select>-->
-<div class="filter_xs">filters</div>
-<div class="filter_block">
-    <div class="filter_x">filters</div>
-    <div class="filters" id="filters">
-        <div class="filters_item">
-            <div class="filters_label">Бренд</div>
-            <div class="filters_list_block">
-                <div class="filters_list" id="filterBrand">
-                    <div class="block">
-                        <a href="#"><i class="i_left"></i>brand</a>
+            <div class="filter_xs">filters</div>
+            <div class="filter_block">
+                <form class="filters" id="filters">
+                    <div class="filters_item">
+                        <div class="filters_label">Бренд</div>
+                        <div class="filters_list_block">
+                            <div class="filters_list" id="filterBrand">
+                                <div class="block">
+                                    <a href="#"><i class="i_left"></i>brand</a>
+                                </div>
+                                <div class="block_label_brands"></div>
+                            </div>
+                            <div class="filters_apply">
+                                <button class="btn_delete">Reset</button>
+                                <button class="btn_apply">Apply</button>
+                            </div>
+                        </div>
                     </div>
-                    <label class="filters_list_item">
-                        <p>Calvin Klein</p>
-                        <input type="checkbox" value="Calvin Klein" name="size">
-                        <span></span>
-                    </label>
-                    <label class="filters_list_item">
-                        <p>Guess</p>
-                        <input type="checkbox" value="Guess" name="size">
-                        <span></span>
-                    </label>
-                    <label class="filters_list_item">
-                        <p>Levis</p>
-                        <input type="checkbox" value="Levis" name="size">
-                        <span></span>
-                    </label>
-                    <label class="filters_list_item">
-                        <p>Puma</p>
-                        <input type="checkbox" value="Puma" name="size">
-                        <span></span>
-                    </label>
-                    <label class="filters_list_item">
-                        <p>Jack Jones</p>
-                        <input type="checkbox" value="Jack Jones" name="size">
-                        <span></span>
-                    </label>
-                </div>
-                <div class="filters_apply">
-                    <button class="btn_delete">Reset</button>
-                    <button class="btn_apply">Apply</button>
-                </div>
-            </div>
-        </div>
-        <div class="filters_item">
-            <div class="filters_label">Размер</div>
-            <div class="filters_list_block">
-                <div class="filters_list" id="filterSize">
-                    <div class="block">
-                        <a href="#"><i class="i_left"></i>size</a>
+                    <div class="filters_item">
+                        <div class="filters_label">Размер</div>
+                        <div class="filters_list_block">
+                            <div class="filters_list" id="filterSize">
+                                <div class="block">
+                                    <a href="#"><i class="i_left"></i>size</a>
+                                </div>
+                                <div class="block_label_sizes"></div>
+                                <label class="filters_list_item">
+                                    <p>S</p>
+                                    <input type="checkbox" value="S" name="size">
+                                    <span></span>
+                                </label>
+                                <label class="filters_list_item">
+                                    <p>M</p>
+                                    <input type="checkbox" value="M" name="size">
+                                    <span></span>
+                                </label>
+                                <label class="filters_list_item">
+                                    <p>L</p>
+                                    <input type="checkbox" value="L" name="size">
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div class="filters_apply">
+                                <button class="btn_delete">Reset</button>
+                                <button class="btn_apply">Apply</button>
+                            </div>
+                        </div>
                     </div>
-                    <label class="filters_list_item">
-                        <p>S</p>
-                        <input type="checkbox" value="S" name="size">
-                        <span></span>
-                    </label>
-                    <label class="filters_list_item">
-                        <p>M</p>
-                        <input type="checkbox" value="M" name="size">
-                        <span></span>
-                    </label>
-                    <label class="filters_list_item">
-                        <p>L</p>
-                        <input type="checkbox" value="L" name="size">
-                        <span></span>
-                    </label>
-                </div>
-                <div class="filters_apply">
-                    <button class="btn_delete">Reset</button>
-                    <button class="btn_apply">Apply</button>
-                </div>
-            </div>
-        </div>
-        <div class="filters_item">
-            <div class="filters_label">Цвет</div>
-            <div class="filters_list_block">
-                <div class="filters_list" id="filterColor">
-                    <div class="block">
-                        <a href="#"><i class="i_left"></i>color</a>
+                    <div class="filters_item">
+                        <div class="filters_label">Цвет</div>
+                        <div class="filters_list_block">
+                            <div class="filters_list" id="filterColor">
+                                <div class="block">
+                                    <a href="#"><i class="i_left"></i>color</a>
+                                </div>
+                                <div class="block_label_colors"></div>
+<!--                                <label class="filters_list_item">-->
+<!--                                    <p class=""><span class="color_black"></span>black</p>-->
+<!--                                    <input type="checkbox" value="black" name="color">-->
+<!--                                    <span></span>-->
+<!--                                </label>-->
+<!--                                <label class="filters_list_item">-->
+<!--                                    <p><span class="color_white"></span>white</p>-->
+<!--                                    <input type="checkbox" value="white" name="color">-->
+<!--                                    <span></span>-->
+<!--                                </label>-->
+<!--                                <label class="filters_list_item">-->
+<!--                                    <p><span class="color_blue"></span>blue</p>-->
+<!--                                    <input type="checkbox" value="blue" name="color">-->
+<!--                                    <span></span>-->
+<!--                                </label>-->
+<!--                                <label class="filters_list_item">-->
+<!--                                    <p><span class="color_red"></span>red</p>-->
+<!--                                    <input type="checkbox" value="red" name="color">-->
+<!--                                    <span></span>-->
+<!--                                </label>-->
+<!--                                <label class="filters_list_item">-->
+<!--                                    <p><span class="color_grey"></span>grey</p>-->
+<!--                                    <input type="checkbox" value="grey" name="color">-->
+<!--                                    <span></span>-->
+<!--                                </label>-->
+<!--                                <label class="filters_list_item">-->
+<!--                                    <p><span class="color_orange"></span>orange</p>-->
+<!--                                    <input type="checkbox" value="orange" name="color">-->
+<!--                                    <span></span>-->
+<!--                                </label>-->
+<!--                                <label class="filters_list_item">-->
+<!--                                    <p><span class="color_yellow"></span>yellow</p>-->
+<!--                                    <input type="checkbox" value="yellow" name="color">-->
+<!--                                    <span></span>-->
+<!--                                </label>-->
+                            </div>
+                            <div class="filters_apply">
+                                <button class="btn_delete">Reset</button>
+                                <button class="btn_apply">Apply</button>
+                            </div>
+                        </div>
                     </div>
-                    <label class="filters_list_item">
-                        <p class=""><span class="color_black"></span>black</p>
-                        <input type="checkbox" value="black" name="color">
-                        <span></span>
-                    </label>
-                    <label class="filters_list_item">
-                        <p><span class="color_white"></span>white</p>
-                        <input type="checkbox" value="white" name="color">
-                        <span></span>
-                    </label>
-                    <label class="filters_list_item">
-                        <p><span class="color_blue"></span>blue</p>
-                        <input type="checkbox" value="blue" name="color">
-                        <span></span>
-                    </label>
-                    <label class="filters_list_item">
-                        <p><span class="color_red"></span>red</p>
-                        <input type="checkbox" value="red" name="color">
-                        <span></span>
-                    </label>
-                    <label class="filters_list_item">
-                        <p><span class="color_grey"></span>grey</p>
-                        <input type="checkbox" value="grey" name="color">
-                        <span></span>
-                    </label>
-                    <label class="filters_list_item">
-                        <p><span class="color_orange"></span>orange</p>
-                        <input type="checkbox" value="orange" name="color">
-                        <span></span>
-                    </label>
-                    <label class="filters_list_item">
-                        <p><span class="color_yellow"></span>yellow</p>
-                        <input type="checkbox" value="yellow" name="color">
-                        <span></span>
-                    </label>
-                </div>
-                <div class="filters_apply">
-                    <button class="btn_delete">Reset</button>
-                    <button class="btn_apply">Apply</button>
+                </form>
+                <div class="filters filter_sort">
+                    <div class="filters_item">
+                        <div class="filters_label filters_label_sort">сортировка</div>
+                        <input type="hidden" id="order_by" name="order_by" value="date">
+                        <div class="filters_list_block">
+                            <div class="filters_list filters_list_sort" id="filterSort">
+                                <label class="filters_list_item filters_list_item_sort" data-sort="up">
+                                    Цена по возрастанию
+                                </label>
+                                <label class="filters_list_item filters_list_item_sort" data-sort="down">
+                                    Цена по убыванию
+                                </label>
+                                <label class="filters_list_item filters_list_item_sort" data-sort="date">
+                                    Новинки
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="filters filter_sort">
-        <div class="filters_item">
-            <div class="filters_label filters_label_sort">сортировка</div>
-            <input type="hidden" id="order_by" name="order_by" value="date">
-            <div class="filters_list_block">
-                <div class="filters_list filters_list_sort" id="filterSort">
-                    <label class="filters_list_item filters_list_item_sort" data-sort="up">
-                        Цена по возрастанию
-                    </label>
-                    <label class="filters_list_item filters_list_item_sort" data-sort="down">
-                        Цена по убыванию
-                    </label>
-                    <label class="filters_list_item filters_list_item_sort" data-sort="date">
-                        Новинки
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
             <h2 class="brand_result">All t-shirt</h2>
         </div>
     </div>
@@ -312,96 +278,123 @@
 </body>
 </html>
 
-<!--<div class="filters" id="filters">-->
-<!--    <div class="filters_item">-->
-<!--        <div class="filters_label">Выберите бренд<span></span></div>-->
-<!--        <div class="filters_list_block">-->
-<!--            <div class="filters_list">-->
-<!--                <label class="filters_list_item">-->
-<!--                    <a href="#" class="filters_list_link">Calvin Klein</a>-->
-<!--                    <input type="checkbox" value="Calvin Klein" name="size">-->
-<!--                    <span></span>-->
-<!--                </label>-->
-<!--                <label class="filters_list_item">-->
-<!--                    <a href="#" class="filters_list_link">Guess</a>-->
-<!--                    <input type="checkbox" value="Guess" name="size">-->
-<!--                    <span></span>-->
-<!--                </label>-->
-<!--                <label class="filters_list_item">-->
-<!--                    <a href="#" class="filters_list_link">Levis</a>-->
-<!--                    <input type="checkbox" value="Levis" name="size">-->
-<!--                    <span></span>-->
-<!--                </label>-->
-<!--                <label class="filters_list_item">-->
-<!--                    <a href="#" class="filters_list_link">Puma</a>-->
-<!--                    <input type="checkbox" value="Puma" name="size">-->
-<!--                    <span></span>-->
-<!--                </label>-->
-<!--                <label class="filters_list_item">-->
-<!--                    <a href="#" class="filters_list_link">Jack Jones</a>-->
-<!--                    <input type="checkbox" value="Jack Jones" name="size">-->
-<!--                    <span></span>-->
-<!--                </label>-->
-<!--                &lt;!&ndash;                            <label class="filters_list_item">&ndash;&gt;-->
-<!--                &lt;!&ndash;                                <a href="#" class="filters_list_link">c</a>&ndash;&gt;-->
-<!--                &lt;!&ndash;                            </label>&ndash;&gt;-->
+<!--    <div class="filter_x">filters</div>-->
+<!--    <div class="filters" id="filters">-->
+<!--        <div class="filters_item">-->
+<!--            <div class="filters_label">Бренд</div>-->
+<!--            <div class="filters_list_block">-->
+<!--                <div class="filters_list" id="filterBrand">-->
+<!--                    <div class="block">-->
+<!--                        <a href="#"><i class="i_left"></i>brand</a>-->
+<!--                    </div>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p>Calvin Klein</p>-->
+<!--                        <input type="checkbox" value="Calvin Klein" name="size">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p>Guess</p>-->
+<!--                        <input type="checkbox" value="Guess" name="size">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p>Levis</p>-->
+<!--                        <input type="checkbox" value="Levis" name="size">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p>Puma</p>-->
+<!--                        <input type="checkbox" value="Puma" name="size">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p>Jack Jones</p>-->
+<!--                        <input type="checkbox" value="Jack Jones" name="size">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--                <div class="filters_apply">-->
+<!--                    <button class="btn_delete">Reset</button>-->
+<!--                    <button class="btn_apply">Apply</button>-->
+<!--                </div>-->
 <!--            </div>-->
-<!--            <div class="filters_apply">-->
-<!--                <button>delete</button>-->
-<!--                <button>apply</button>-->
+<!--        </div>-->
+<!--        <div class="filters_item">-->
+<!--            <div class="filters_label">Размер</div>-->
+<!--            <div class="filters_list_block">-->
+<!--                <div class="filters_list" id="filterSize">-->
+<!--                    <div class="block">-->
+<!--                        <a href="#"><i class="i_left"></i>size</a>-->
+<!--                    </div>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p>S</p>-->
+<!--                        <input type="checkbox" value="S" name="size">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p>M</p>-->
+<!--                        <input type="checkbox" value="M" name="size">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p>L</p>-->
+<!--                        <input type="checkbox" value="L" name="size">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--                <div class="filters_apply">-->
+<!--                    <button class="btn_delete">Reset</button>-->
+<!--                    <button class="btn_apply">Apply</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="filters_item">-->
+<!--            <div class="filters_label">Цвет</div>-->
+<!--            <div class="filters_list_block">-->
+<!--                <div class="filters_list" id="filterColor">-->
+<!--                    <div class="block">-->
+<!--                        <a href="#"><i class="i_left"></i>color</a>-->
+<!--                    </div>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p class=""><span class="color_black"></span>black</p>-->
+<!--                        <input type="checkbox" value="black" name="color">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p><span class="color_white"></span>white</p>-->
+<!--                        <input type="checkbox" value="white" name="color">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p><span class="color_blue"></span>blue</p>-->
+<!--                        <input type="checkbox" value="blue" name="color">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p><span class="color_red"></span>red</p>-->
+<!--                        <input type="checkbox" value="red" name="color">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p><span class="color_grey"></span>grey</p>-->
+<!--                        <input type="checkbox" value="grey" name="color">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p><span class="color_orange"></span>orange</p>-->
+<!--                        <input type="checkbox" value="orange" name="color">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                    <label class="filters_list_item">-->
+<!--                        <p><span class="color_yellow"></span>yellow</p>-->
+<!--                        <input type="checkbox" value="yellow" name="color">-->
+<!--                        <span></span>-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--                <div class="filters_apply">-->
+<!--                    <button class="btn_delete">Reset</button>-->
+<!--                    <button class="btn_apply">Apply</button>-->
+<!--                </div>-->
 <!--            </div>-->
 <!--        </div>-->
 <!--    </div>-->
-<!--    <div class="filters_item">-->
-<!--        <div class="filters_label">Выберите размер<span></span></div>-->
-<!--        <div class="filters_list_block">-->
-<!--            <div class="filters_list">-->
-<!--                <label class="filters_list_item">-->
-<!--                    <a href="#" class="filters_list_link">S</a>-->
-<!--                    <input type="checkbox" value="S" name="size">-->
-<!--                    <span></span>-->
-<!--                </label>-->
-<!--                <label class="filters_list_item">-->
-<!--                    <a href="#" class="filters_list_link">M</a>-->
-<!--                    <input type="checkbox" value="M" name="size">-->
-<!--                    <span></span>-->
-<!--                </label>-->
-<!--                <label class="filters_list_item">-->
-<!--                    <a href="#" class="filters_list_link">L</a>-->
-<!--                    <input type="checkbox" value="L" name="size">-->
-<!--                    <span></span>-->
-<!--                </label>-->
-<!--            </div>-->
-<!--            <div class="filters_apply">-->
-<!--                <button>delete</button>-->
-<!--                <button>apply</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="filters_item">-->
-<!--        <div class="filters_label">Выберите цвет<span></span></div>-->
-<!--        <div class="filters_list_block">-->
-<!--            <div class="filters_list">-->
-<!--                <label class="filters_list_item">-->
-<!--                    <a href="#" class="filters_list_link">Белый</a>-->
-<!--                    <input type="checkbox" value="Белый" name="size">-->
-<!--                    <span></span>-->
-<!--                </label>-->
-<!--                <label class="filters_list_item">-->
-<!--                    <a href="#" class="filters_list_link">Чёрный</a>-->
-<!--                    <input type="checkbox" value="Чёрный" name="size">-->
-<!--                    <span></span>-->
-<!--                </label>-->
-<!--                <label class="filters_list_item">-->
-<!--                    <a href="#" class="filters_list_link">Другой</a>-->
-<!--                    <input type="checkbox" value="Другой" name="size">-->
-<!--                    <span></span>-->
-<!--                </label>-->
-<!--            </div>-->
-<!--            <div class="filters_apply">-->
-<!--                <button>delete</button>-->
-<!--                <button>apply</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>

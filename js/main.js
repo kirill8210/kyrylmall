@@ -1,146 +1,13 @@
-import apiT from './api.js';
+import getProducts from "./getProducts.js";
 
-console.log(apiT)
-
+let allProducts = [];
 const allItems = document.querySelector('.all_item');
-const modalItem = document.querySelector('.details');
-const element = document.querySelector('.search_choices');
+const labelBrands = document.querySelector('.block_label_brands');
+const labelSizes = document.querySelector('.block_label_size');
+const labelColors = document.querySelector('.block_label_colors');
 
-
-const orderBy = document.querySelector('#order_by');
-
-// const choices = new Choices(element, {
-//     searchEnabled: false,
-//     itemSelectText: ''
-// });
-
-const declOfNum = (n, titles) => {
-    return n + ' ' + titles[n % 10 === 1 && n % 100 !== 11 ?
-        0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
-};
-
-const result = document.querySelector('.title h2');
-const number = document.querySelector('.brand_result span');
-let values = null;
-
-const filterApply = document.getElementById('filter_apply');
-const filterReset = document.getElementById('filter_reset');
-const resetCheck = document.querySelectorAll('.filter_check input');
-
-function getCheckedBrand() {
-    return Array.from(document.querySelectorAll('#filter_brand input[type="checkbox"]'))
-        .filter((checkbox) => checkbox.checked)
-        .map((checkbox) => checkbox.value);
-}
-
-function getCheckedSize() {
-    return Array.from(document.querySelectorAll('#filter_size input[type="checkbox"]'))
-        .filter((checkbox) => checkbox.checked)
-        .map((checkbox) => checkbox.value);
-}
-
-function removeCheck() {
-    for(let i = 0; i < resetCheck.length; i++){
-        if(resetCheck[i].type === 'checkbox'){
-            resetCheck[i].checked = false;
-        }
-    }
-    return resetCheck;
-}
-
-filterReset.addEventListener('click', (e) => {
-    e.preventDefault();
-    removeCheck();
-    result.textContent = 'All t-shirt';
-    allItems.textContent = '';
-    getData();
-});
-
-// filterApply.addEventListener('click', (e) => {
-//     e.preventDefault();
-//
-//     if (getCheckedBrand().length !== 0){
-//         if (getCheckedSize().length !== 0){
-//             allItems.textContent = '';
-//             getFilterSize();
-//         } else {
-//             result.textContent = 'Выберите размер';
-//             allItems.textContent = '';
-//             setTimeout (function () {
-//                 result.textContent = 'All t-shirt';
-//                 getData();
-//             }, 1000);
-//         }
-//
-//     } else{
-//         result.textContent = 'Выберите бренд';
-//         allItems.textContent = '';
-//         setTimeout (function () {
-//             result.textContent = 'All t-shirt';
-//             getData();
-//         }, 1000);
-//     }
-// });
-
-// change
-// element.addEventListener('change', (e) => {
-//     result.textContent = '';
-//     allItems.textContent = '';
-//     values = e.target.value;
-//     if (values){
-//         getLoadItem();
-//     } else {
-//         result.textContent = 'All t-shirt';
-//         getData();
-//     }
-// });
-
-// const getFilterSize = () => {
-//     fetch(apiT)
-//         .then(response => response.json())
-//         .then(data => {
-//             const cards = data.filter((data) => getCheckedBrand().includes(data.brand)).filter(data => data.size.some(i => getCheckedSize().includes(i))).map(createCard);
-//             allItems.append(...cards);
-//             const nums = cards.length;
-//             result.textContent = `Найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${getCheckedBrand()}":`;
-//         });
-// };
-//
-// const getLoadItem = () => {
-//     fetch(apiT)
-//         .then(response => response.json())
-//         .then(data => {
-//             const cards = data.filter((data) => values.includes(data.brand)).map(createCard);
-//             allItems.append(...cards);
-//             const nums = cards.length;
-//             result.textContent = `найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${values}":`;
-//         });
-// };
-
-const getData = () => {
-    fetch('https://kirill8210.github.io/api_kyrylmall/db.json')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            sortData(data)
-            const cards = data.map(createCard);
-            allItems.append(...cards);
-        });
-};
-
-getData();
-
-// const getDataId = ({id} = {}) => {
-//     const URL = 'https://lit-cliffs-43895.herokuapp.com/api/vacancy';
-//     let url = `${apiT}/${id ? id : '' }`;
-//
-//     return fetch(url).then(response => response.json());
-// };
-//
-// getDataId();
-
-const createCard = (data) =>{
-    const { brand, id, size, price} = data;
+const createCard = (allProducts) =>{
+    const { brand, id, size, price} = allProducts;
 
     const card = document.createElement('div');
     card.insertAdjacentHTML('afterbegin', ` 
@@ -157,8 +24,87 @@ const createCard = (data) =>{
     return card;
 };
 
-const createModal = (data) =>{
-    const { id, size, detailsW1, detailsW2, detailsH } = data;
+const createSelectB = (brand) =>{
+    const list = document.createElement('div');
+    list.classList.add('block_label_brands');
+
+    list.insertAdjacentHTML('afterbegin', ` 
+        <label class="filters_list_item">
+            <p>${brand}</p>
+            <input type="checkbox" value="${brand}" name="size">
+            <span></span>
+        </label>     
+    `);
+
+    return list;
+};
+
+const createSelectS = (size) =>{
+    const list = document.createElement('div');
+    list.classList.add('block_label_sizes');
+
+    list.insertAdjacentHTML('afterbegin', ` 
+        <label class="filters_list_item">
+            <p>${size}</p>
+            <input type="checkbox" value="${size}" name="size">
+            <span></span>
+        </label>     
+    `);
+
+    return list;
+};
+
+const createSelectC = (color) =>{
+    const list = document.createElement('div');
+    list.classList.add('block_label_colors');
+
+    list.insertAdjacentHTML('afterbegin', ` 
+        <label class="filters_list_item">
+            <p><span class="color_${color}"></span>${color}</p>
+            <input type="checkbox" value="${color}" name="color">
+            <span></span>
+        </label>    
+    `);
+
+    return list;
+};
+
+//select
+const filters = document.querySelectorAll('.filters');
+for (const filter of filters) {
+    const filterItems = filter.querySelectorAll('.filters_item');
+    for (const filterItem of filterItems) {
+        const filtersLabel = filterItem.querySelector('.filters_label');
+        filtersLabel.addEventListener('click', () => {
+            for (const otherfilterItems of filterItems) {
+                if (otherfilterItems !== filterItem) {
+                    otherfilterItems.classList.remove('filters_active');
+                }
+            }
+            filterItem.classList.toggle('filters_active');
+        });
+    }
+}
+
+// modal
+const descriptionProduct = ({id}) => {
+    const product = allProducts
+        .filter(product => product.id === id)
+        .reduce((acc, i) => {
+            return [
+                acc,
+                {
+                    id: i.id,
+                    size: i.size,
+                    price: i.price,
+                },
+            ];
+        })
+    return product;
+};
+
+const createModal = (productId) =>{
+    const { id, size, detailsW1, detailsW2, detailsH } = productId;
 
     const modal = document.createElement('div');
     modal.classList.add('modal');
@@ -197,13 +143,13 @@ const createModal = (data) =>{
 };
 
 const modalHandler = () => {
-    allItems.addEventListener('click', async (e) => {
+    allItems.addEventListener('click', (e) => {
         const target = e.target;
         if (target.dataset.item) {
             e.preventDefault();
             modalItem.classList.add('details_active');
-            const data = await getDataId({id: target.dataset.item});
-            const modal = createModal(data);
+            const detailsProduct = descriptionProduct({id: target.dataset.item});
+            const modal = createModal(detailsProduct);
             modalItem.append(modal);
         }
     });
@@ -218,7 +164,155 @@ const modalHandler = () => {
     });
 };
 
-modalHandler();
+// render cards
+const renderProducts = () => {
+    const products = [...allProducts];
+    filingSelectsBrands(products);
+    filingCards(products);
+};
+
+const filingCards = (products) => {
+    allItems.textContent = '';
+    const cards = products.map(createCard);
+    allItems.append(...cards);
+}
+
+const filingSelectsBrands = (products) => {
+    const brands = [...new Set(products.map(i => i.brand))]
+    const selectBrands = brands.map(createSelectB);
+    labelBrands.append(...selectBrands);
+
+    //const sizes = (allsize.concat(products.map(i => i.size)));
+    // const sizes = [...new Set(products.map(i => i.size))]
+    // allSize()
+    // const selectSize = sizes.map(createSelectS);
+    // labelSizes.append(...selectSize);
+    const colors = [...new Set(products.map(i => i.color))]
+    const selectColors = colors.map(createSelectC);
+    labelColors.append(...selectColors);
+}
+
+const init = async () => {
+    allProducts = await getProducts();
+    renderProducts();
+    modalHandler();
+};
+
+init();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const modalItem = document.querySelector('.details');
+
+const orderBy = document.querySelector('#order_by');
+
+const declOfNum = (n, titles) => {
+    return n + ' ' + titles[n % 10 === 1 && n % 100 !== 11 ?
+        0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
+};
+
+const result = document.querySelector('.title h2');
+//const number = document.querySelector('.brand_result span');
+let values = null;
+
+const filterApply = document.getElementById('filter_apply');
+const filterReset = document.getElementById('filter_reset');
+const resetCheck = document.querySelectorAll('.filter_check input');
+
+function getCheckedBrand() {
+    return Array.from(document.querySelectorAll('#filter_brand input[type="checkbox"]'))
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value);
+}
+
+function getCheckedSize() {
+    return Array.from(document.querySelectorAll('#filter_size input[type="checkbox"]'))
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value);
+}
+
+function removeCheck() {
+    for(let i = 0; i < resetCheck.length; i++){
+        if(resetCheck[i].type === 'checkbox'){
+            resetCheck[i].checked = false;
+        }
+    }
+    return resetCheck;
+}
+
+filterReset.addEventListener('click', (e) => {
+    e.preventDefault();
+    removeCheck();
+    result.textContent = 'All t-shirt';
+    allItems.textContent = '';
+    getData();
+});
+
+filterApply.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if (getCheckedBrand().length !== 0){
+        if (getCheckedSize().length !== 0){
+            allItems.textContent = '';
+            getFilterSize();
+        } else {
+            result.textContent = 'Выберите размер';
+            allItems.textContent = '';
+            setTimeout (function () {
+                result.textContent = 'All t-shirt';
+                getData();
+            }, 1000);
+        }
+
+    } else{
+        result.textContent = 'Выберите бренд';
+        allItems.textContent = '';
+        setTimeout (function () {
+            result.textContent = 'All t-shirt';
+            getData();
+        }, 1000);
+    }
+});
+
+const getFilterSize = () => {
+    fetch(apiT)
+        .then(response => response.json())
+        .then(data => {
+            const cards = data.filter((data) => getCheckedBrand().includes(data.brand)).filter(data => data.size.some(i => getCheckedSize().includes(i))).map(createCard);
+            allItems.append(...cards);
+            const nums = cards.length;
+            result.textContent = `Найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${getCheckedBrand()}":`;
+        });
+};
+
+const getLoadItem = () => {
+    fetch(apiT)
+        .then(response => response.json())
+        .then(data => {
+            const cards = data.filter((data) => values.includes(data.brand)).map(createCard);
+            allItems.append(...cards);
+            const nums = cards.length;
+            result.textContent = `найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${values}":`;
+        });
+};
+
+
 
 // filters
 
@@ -226,22 +320,22 @@ const btnReset = document.querySelectorAll('.btn_delete');
 const btnApply = document.querySelectorAll('.btn_apply');
 const filterCheck = document.querySelectorAll('.filters_list input');
 
-// menu desctop
-const filters = document.querySelectorAll('.filters');
-for (const filter of filters) {
-    const filterItems = filter.querySelectorAll('.filters_item');
-    for (const filterItem of filterItems) {
-        const filtersLabel = filterItem.querySelector('.filters_label');
-        filtersLabel.addEventListener('click', () => {
-            for (const otherfilterItems of filterItems) {
-                if (otherfilterItems !== filterItem) {
-                    otherfilterItems.classList.remove('filters_active');
-                }
-            }
-            filterItem.classList.toggle('filters_active');
-        });
-    }
-}
+// menu desktop
+// const filters = document.querySelectorAll('.filters');
+// for (const filter of filters) {
+//     const filterItems = filter.querySelectorAll('.filters_item');
+//     for (const filterItem of filterItems) {
+//         const filtersLabel = filterItem.querySelector('.filters_label');
+//         filtersLabel.addEventListener('click', () => {
+//             for (const otherfilterItems of filterItems) {
+//                 if (otherfilterItems !== filterItem) {
+//                     otherfilterItems.classList.remove('filters_active');
+//                 }
+//             }
+//             filterItem.classList.toggle('filters_active');
+//         });
+//     }
+// }
 
 function removeFilterCheck() {
     for(let i = 0; i < filterCheck.length; i++){
@@ -256,16 +350,17 @@ btnReset.forEach(filter =>
     filter.addEventListener('click', () => {
         removeFilterCheck();
 
-        if (document.documentElement.clientWidth < 992) {
-            filterBlock.style.display = 'none'
-            filter.closest('.open').classList.remove('open');
-        }
+        // if (document.documentElement.clientWidth < 992) {
+        //     filterBlock.style.display = 'none'
+        //     filter.closest('.open').classList.remove('open');
+        // }
 
         allItems.textContent = '';
         result.textContent = 'All t-shirt';
         sortTitleLabel.textContent = 'сортировка';
         orderBy.value = 'date';
-        getData();
+        const products = [...allProducts];
+        filingCards(products);
         filter.closest('.filters_active').classList.remove('filters_active');
     })
 );
@@ -307,7 +402,7 @@ function getFilterColor() {
 }
 
 const getFilters = () => {
-    fetch(`https://lit-cliffs-43895.herokuapp.com/api/vacancy`)
+    fetch(`https://kirill8210.github.io/api_kyrylmall/db.json`)
         .then(response => response.json())
         .then(data => {
             sortData(data)
@@ -329,10 +424,10 @@ btnApply.forEach(filter =>
     filter.addEventListener('click', (e) => {
         e.preventDefault();
 
-        if (document.documentElement.clientWidth < 992) {
-            filterBlock.style.display = 'none'
-            filter.closest('.open').classList.remove('open');
-        }
+        // if (document.documentElement.clientWidth < 992) {
+        //     filterBlock.style.display = 'none'
+        //     filter.closest('.open').classList.remove('open');
+        // }
 
         allItems.textContent = '';
         getFilters();
@@ -380,8 +475,6 @@ sortList.addEventListener('click', (e) =>{
         }
     }
 });
-
-
 
 // if(getFilters()){
 //     allItems.textContent = '';
@@ -446,5 +539,51 @@ openFilter.addEventListener('click', () =>{
 openFilters.addEventListener('click', () =>{
     filterBlock.style.display = 'none'
 })
-
 }
+
+const createSelectBlock = () =>{
+    const select = document.createElement('div');
+    select.classList.add('filters_item');
+
+    const select_title = document.createElement('div');
+    select_title.classList.add('filters_label');
+    select_title.textContent = 'Бренд';
+
+    const select_options = document.createElement('div');
+    select_options.classList.add('filters_list_block');
+
+    const filters_list = document.createElement('div');
+    filters_list.classList.add('filters_list');
+    filters_list.id = 'filterBrand';
+
+    const block = document.createElement('div');
+    block.classList.add('block');
+
+    const  blockLinks = document.createElement('a');
+    blockLinks.href = '#';
+
+    const blockLinks_left = document.createElement('i');
+    blockLinks_left.classList.add('i_left');
+    blockLinks_left.textContent = 'brand';
+
+    const filters_apply = document.createElement('div');
+    filters_apply.classList.add('filters_apply');
+
+    const btnReset = document.createElement('button');
+    btnReset.classList.add('btn_delete');
+    btnReset.textContent = 'Reset';
+
+    const btnApply = document.createElement('button');
+    btnApply.classList.add('btn_apply');
+    btnApply.textContent = 'Apply';
+
+    blockLinks.append(blockLinks_left)
+    block.append(blockLinks);
+    filters_list.append(block);
+    filters_apply.append(btnReset, btnApply);
+    select_options.append(filters_list, filters_apply);
+
+    select.append(select_title, select_options);
+
+    return select;
+};
