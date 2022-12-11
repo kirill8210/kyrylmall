@@ -3,7 +3,7 @@ import getProducts from "./getProducts.js";
 let allProducts = [];
 const allItems = document.querySelector('.all_item');
 const labelBrands = document.querySelector('.block_label_brands');
-const labelSizes = document.querySelector('.block_label_size');
+const labelSizes = document.querySelector('.block_label_sizes');
 const labelColors = document.querySelector('.block_label_colors');
 
 const createCard = (allProducts) =>{
@@ -24,7 +24,7 @@ const createCard = (allProducts) =>{
     return card;
 };
 
-const createSelectB = (brand) =>{
+const createSelectBrands = (brand) =>{
     const list = document.createElement('div');
     list.classList.add('block_label_brands');
 
@@ -39,7 +39,7 @@ const createSelectB = (brand) =>{
     return list;
 };
 
-const createSelectS = (size) =>{
+const createSelectSizes = (size) =>{
     const list = document.createElement('div');
     list.classList.add('block_label_sizes');
 
@@ -54,7 +54,7 @@ const createSelectS = (size) =>{
     return list;
 };
 
-const createSelectC = (color) =>{
+const createSelectColors = (color) =>{
     const list = document.createElement('div');
     list.classList.add('block_label_colors');
 
@@ -87,6 +87,8 @@ for (const filter of filters) {
 }
 
 // modal
+const modalItem = document.querySelector('.details');
+
 const descriptionProduct = ({id}) => {
     const product = allProducts
         .filter(product => product.id === id)
@@ -177,19 +179,42 @@ const filingCards = (products) => {
     allItems.append(...cards);
 }
 
+const sortedSizes = (size) => {
+    const sizeCharts = {
+        'XS': 1,
+        'S': 2,
+        'M': 3,
+        'L': 4,
+        'XL': 5
+    };
+
+    const sortedArray = size.sort((a, b) => {
+        return sizeCharts[a] - sizeCharts[b]
+    });
+
+    return sortedArray;
+}
+
 const filingSelectsBrands = (products) => {
     const brands = [...new Set(products.map(i => i.brand))]
-    const selectBrands = brands.map(createSelectB);
+    const selectBrands = brands.map(createSelectBrands);
     labelBrands.append(...selectBrands);
 
-    //const sizes = (allsize.concat(products.map(i => i.size)));
-    // const sizes = [...new Set(products.map(i => i.size))]
-    // allSize()
-    // const selectSize = sizes.map(createSelectS);
-    // labelSizes.append(...selectSize);
+    const size = products.map(i => i.size).reduce((acc, size) => {
+        return acc + ',' + size
+    })
+    const allSizes = [...new Set(size.replaceAll(',' , ' ').split(' '))];
+    const sizes = sortedSizes(allSizes);
+    const selectSizes = sizes.map(createSelectSizes);
+    labelSizes.append(...selectSizes);
+
     const colors = [...new Set(products.map(i => i.color))]
-    const selectColors = colors.map(createSelectC);
+    const selectColors = colors.map(createSelectColors);
     labelColors.append(...selectColors);
+
+    console.log(brands)
+    console.log(sizes)
+    console.log(colors)
 }
 
 const init = async () => {
@@ -218,7 +243,7 @@ init();
 
 
 
-const modalItem = document.querySelector('.details');
+//
 
 const orderBy = document.querySelector('#order_by');
 
@@ -455,26 +480,30 @@ const sortBlock = document.querySelector('.filter_sort .filters_item');
 const sortTitleLabel = document.querySelector('.filters_label_sort');
 const sortList = document.querySelector('.filters_list_sort');
 
-sortList.addEventListener('click', (e) =>{
-    const target = e.target;
 
-    if (target.classList.contains('filters_list_item_sort')){
-        sortTitleLabel.textContent = target.textContent;
-        orderBy.value = target.dataset.sort;
+// sortList.addEventListener('click', (e) =>{
+//     const target = e.target;
+//
+//     if (target.classList.contains('filters_list_item_sort')){
+//         sortTitleLabel.textContent = target.textContent;
+//         orderBy.value = target.dataset.sort;
+//
+//         allItems.textContent = '';
+//         getFilters();
+//
+//         sortBlock.classList.remove('filters_active');
+//         for (const el of sortList.querySelectorAll('.filters_list_item_sort')){
+//             if (el === target){
+//                 el.classList.add('option__item_active');
+//             } else {
+//                 el.classList.remove('option__item_active')
+//             }
+//         }
+//     }
+// });
 
-        allItems.textContent = '';
-        getFilters();
 
-        sortBlock.classList.remove('filters_active');
-        for (const el of sortList.querySelectorAll('.filters_list_item_sort')){
-            if (el === target){
-                el.classList.add('option__item_active');
-            } else {
-                el.classList.remove('option__item_active')
-            }
-        }
-    }
-});
+
 
 // if(getFilters()){
 //     allItems.textContent = '';
