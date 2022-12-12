@@ -2,9 +2,15 @@ import getProducts from "./getProducts.js";
 
 let allProducts = [];
 const allItems = document.querySelector('.all_item');
-const labelBrands = document.querySelector('.block_label_brands');
+const labelBrands = document.querySelector('.filters_list');
 const labelSizes = document.querySelector('.block_label_sizes');
 const labelColors = document.querySelector('.block_label_colors');
+const titleOfFilters = document.querySelector('.title h2');
+
+const declOfNum = (n, titles) => {
+    return n + ' ' + titles[n % 10 === 1 && n % 100 !== 11 ?
+        0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
+};
 
 const createCard = (allProducts) =>{
     const { brand, id, size, price} = allProducts;
@@ -25,15 +31,13 @@ const createCard = (allProducts) =>{
 };
 
 const createSelectBrands = (brand) =>{
-    const list = document.createElement('div');
-    list.classList.add('block_label_brands');
+    const list = document.createElement('label');
+    list.classList.add('filters_list_item');
 
     list.insertAdjacentHTML('afterbegin', ` 
-        <label class="filters_list_item">
-            <p>${brand}</p>
-            <input type="checkbox" value="${brand}" name="size">
-            <span></span>
-        </label>     
+        <p>${brand}</p>
+        <input type="checkbox" value="${brand}" name="size">
+        <span></span>
     `);
 
     return list;
@@ -169,15 +173,31 @@ const modalHandler = () => {
 // render cards
 const renderProducts = () => {
     const products = [...allProducts];
-    filingSelectsBrands(products);
+    filingSelectsBrands();
     filingCards(products);
 };
 
-const filingCards = (products) => {
+const filingCards = () => {
+    const products = [...allProducts];
     allItems.textContent = '';
     const cards = products.map(createCard);
     allItems.append(...cards);
 }
+
+const filteringProducts = () => {
+    const products = [...allProducts];
+    const filtersProducts = products
+        .filter( product => getCheckedBrand().includes(product.brand))
+        .filter(data => data.size.some(product => getCheckedSize().includes(product)))
+        .filter( product => getCheckedColor().includes(product.color))
+        .map(createCard);
+
+        allItems.textContent = '';
+        allItems.append(...filtersProducts);
+
+        const nums = filtersProducts.length;
+        titleOfFilters.textContent = `Найдено ${declOfNum( nums,['модель', 'модели', 'моделей'])} "${getCheckedBrand()}":`;
+};
 
 const sortedSizes = (size) => {
     const sizeCharts = {
@@ -195,27 +215,106 @@ const sortedSizes = (size) => {
     return sortedArray;
 }
 
-const filingSelectsBrands = (products) => {
-    const brands = [...new Set(products.map(i => i.brand))]
-    const selectBrands = brands.map(createSelectBrands);
-    labelBrands.append(...selectBrands);
+const brandsOfSite = () => {
+    const products = [...allProducts];
+    return [...new Set(products.map(i => i.brand))].sort();
+}
 
+const sizesOfSite = () => {
+    const products = [...allProducts];
     const size = products.map(i => i.size).reduce((acc, size) => {
         return acc + ',' + size
-    })
-    const allSizes = [...new Set(size.replaceAll(',' , ' ').split(' '))];
-    const sizes = sortedSizes(allSizes);
-    const selectSizes = sizes.map(createSelectSizes);
+    });
+
+    return sortedSizes([...new Set(size.replaceAll(',' , ' ').split(' '))]);
+}
+
+const colorsOfSite = () => {
+    const products = [...allProducts];
+    return [...new Set(products.map(i => i.color))].sort();
+}
+
+const filingSelectsBrands = () => {
+    const selectBrands = brandsOfSite().map(createSelectBrands);
+    labelBrands.append(...selectBrands);
+
+    const selectSizes = sizesOfSite().map(createSelectSizes);
     labelSizes.append(...selectSizes);
 
-    const colors = [...new Set(products.map(i => i.color))]
-    const selectColors = colors.map(createSelectColors);
+    const selectColors = colorsOfSite().map(createSelectColors);
     labelColors.append(...selectColors);
-
-    console.log(brands)
-    console.log(sizes)
-    console.log(colors)
 }
+
+//checked select
+const btnReset = document.querySelectorAll('.btn_delete');
+const btnApply = document.querySelectorAll('.btn_apply');
+const filterCheck = document.querySelectorAll('.filters_list input');
+
+function getCheckedBrand() {
+    const checkedBrands = document.querySelectorAll('#filterBrand input[type="checkbox"]')
+    const arrayCheckedBrands = Array.from(checkedBrands)
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value);
+    if (arrayCheckedBrands.length > 0){
+        return arrayCheckedBrands;
+    } else {
+        return brandsOfSite()
+    }
+}
+
+function getCheckedSize() {
+    const checkedSizes = document.querySelectorAll('#filterSize input[type="checkbox"] ')
+    const arrayCheckedSizes = Array.from(checkedSizes)
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value);
+    if (arrayCheckedSizes.length > 0){
+        return arrayCheckedSizes;
+    } else {
+        return sizesOfSite();
+    }
+}
+
+function getCheckedColor() {
+    const checkerColor = document.querySelectorAll('#filterColor input[type="checkbox"] ');
+    const arrayCheckerColor = Array.from(checkerColor)
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value);
+    if (arrayCheckerColor.length > 0){
+        return arrayCheckerColor;
+    } else {
+        return colorsOfSite();
+    }
+}
+
+btnApply.forEach(filter =>
+    filter.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        filteringProducts();
+        filter.closest('.filters_active').classList.remove('filters_active');
+    })
+);
+
+function removeFilterCheck() {
+    for(let i = 0; i < filterCheck.length; i++){
+        if(filterCheck[i].type === 'checkbox'){
+            filterCheck[i].checked = false;
+        }
+    }
+    return filterCheck;
+}
+
+btnReset.forEach(filter =>
+    filter.addEventListener('click', () => {
+        removeFilterCheck();
+
+        allItems.textContent = '';
+        titleOfFilters.textContent = 'All t-shirts';
+        filingCards();
+        filter.closest('.filters_active').classList.remove('filters_active');
+    })
+);
+
 
 const init = async () => {
     allProducts = await getProducts();
@@ -243,7 +342,7 @@ init();
 
 
 
-//
+/*
 
 const orderBy = document.querySelector('#order_by');
 
@@ -256,15 +355,10 @@ const result = document.querySelector('.title h2');
 //const number = document.querySelector('.brand_result span');
 let values = null;
 
-const filterApply = document.getElementById('filter_apply');
+
 const filterReset = document.getElementById('filter_reset');
 const resetCheck = document.querySelectorAll('.filter_check input');
 
-function getCheckedBrand() {
-    return Array.from(document.querySelectorAll('#filter_brand input[type="checkbox"]'))
-        .filter((checkbox) => checkbox.checked)
-        .map((checkbox) => checkbox.value);
-}
 
 function getCheckedSize() {
     return Array.from(document.querySelectorAll('#filter_size input[type="checkbox"]'))
@@ -289,31 +383,6 @@ filterReset.addEventListener('click', (e) => {
     getData();
 });
 
-filterApply.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    if (getCheckedBrand().length !== 0){
-        if (getCheckedSize().length !== 0){
-            allItems.textContent = '';
-            getFilterSize();
-        } else {
-            result.textContent = 'Выберите размер';
-            allItems.textContent = '';
-            setTimeout (function () {
-                result.textContent = 'All t-shirt';
-                getData();
-            }, 1000);
-        }
-
-    } else{
-        result.textContent = 'Выберите бренд';
-        allItems.textContent = '';
-        setTimeout (function () {
-            result.textContent = 'All t-shirt';
-            getData();
-        }, 1000);
-    }
-});
 
 const getFilterSize = () => {
     fetch(apiT)
@@ -425,7 +494,7 @@ function getFilterColor() {
         return arrayColor
     }
 }
-
+/*
 const getFilters = () => {
     fetch(`https://kirill8210.github.io/api_kyrylmall/db.json`)
         .then(response => response.json())
@@ -547,6 +616,8 @@ for (const accordion of accordions) {
     }
 }
 */
+
+/*
 const menu1 = document.querySelectorAll('#filters .filters_label');
 const MenuClose1 = document.querySelectorAll('.block');
 for ( let i = 0; i < menu1.length; i++ ) {
@@ -558,7 +629,7 @@ for ( let i = 0; i < menu1.length; i++ ) {
         subMenu1.classList.remove('open');
     });
 }
-
+/*
 const openFilter = document.querySelector('.filter_xs')
 const openFilters = document.querySelector('.filter_x')
 const filterBlock = document.querySelector('.filter_block')
@@ -616,3 +687,5 @@ const createSelectBlock = () =>{
 
     return select;
 };
+
+ */

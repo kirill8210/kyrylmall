@@ -422,6 +422,7 @@ body{
     z-index: 10;
     opacity: 0;
     visibility: hidden;
+    display: none;
     transition: 0.5s opacity, 0.5s visibility;
 }
 
@@ -435,6 +436,7 @@ body{
     left: auto;
     opacity: 1;
     visibility: visible;
+    display: flex;
 }
 
 .option__item_active:before {
@@ -457,6 +459,7 @@ body{
 .filters_active .filters_list_block{
     opacity: 1;
     visibility: visible;
+    display: flex;
 }
 
 .filters_list_item{
