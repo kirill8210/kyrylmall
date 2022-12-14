@@ -152,6 +152,7 @@ body{
     max-width: 400px;
     border-radius: 10px;
     cursor: auto;
+    z-index: 100;
 }
 
 .modal_close{
@@ -559,7 +560,7 @@ body{
     justify-content: space-evenly;
 }
 
-.filters_apply button{
+.filters_apply button, .filters_apply_xs button{
     margin: 8px auto;
     padding: 8px 10px;
     background: #707070;
@@ -571,7 +572,7 @@ body{
     transition: 0.3s ease-in;
 }
 
-.filters_apply button:hover{
+.filters_apply button:hover, .filters_apply_xs button:hover{
     background: #212121;
 }
 
@@ -644,9 +645,6 @@ body{
 
 @media screen and (max-width: 992px) {
 
-    .filter_sort{
-        display: none;
-    }
     .menu{
         background: #fff;
         /*display: flex!important;*/
@@ -842,7 +840,7 @@ body{
 }
 
 /*filter*/
-.menu, .block, .filter_x, .filter_xs{
+.menu, .block, .filter_x, .filter_xs, .close_filters, .filters_apply_xs{
     display: none;
 }
 
@@ -859,11 +857,40 @@ body{
     .menu{
         display: none;
     }
+
     .block{
         display: flex;
     }
-    .filter_xs{
 
+    .filters_apply{
+        margin-top: auto;
+    }
+
+    .filters_apply_xs{
+        display: flex;
+        justify-content: space-evenly;
+        min-width: 272px;
+        max-width: 372px;
+        margin-top: auto;
+    }
+
+    .filters_apply_xs button{
+        margin: 8px auto;
+        padding: 8px 10px;
+        background: #707070;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        width: 125px;
+        cursor: pointer;
+        transition: 0.3s ease-in;
+    }
+
+    .filters_apply_xs button:hover{
+        background: #212121;
+    }
+
+    .filter_xs{
         display: flex;
         justify-content: center;
         align-items: center;
@@ -912,14 +939,15 @@ body{
         display: none;
         flex-direction: column!important;
         justify-content: start!important;
-        height: calc(100vh - 50px)!important;
+        height: 100%!important;
         left: 0!important;
         position: fixed!important;
-        top: 50px!important;
+        top: 0;
         transition: left .6s ease-in-out .1s!important;
         min-width: 320px!important;
         padding: 0 24px 32px!important;
-        z-index: 1!important;
+        z-index: 100!important;
+        box-shadow: 0 0 10px #212121;
     }
 
     .filters{
@@ -930,7 +958,6 @@ body{
     .filters > div{
         display: flex;
         align-items: center;
-
         border-bottom: 1px solid #e9eaed!important;
         height: 50px!important;
     }
@@ -984,7 +1011,7 @@ body{
     /*    -webkit-transform: rotate(135deg);*/
     /*}*/
 
-    .block a{
+    .block a, .close_filters a{
         display: flex!important;
         align-items: center!important;
         justify-content: space-between!important;
@@ -1019,10 +1046,10 @@ body{
         flex-direction: column!important;
         background: #ffffff!important;
         /*color: #ffffff;*/
-        height: calc(100vh - 50px)!important;
-        left: -100%!important;
+        height: 100%;
+        left: calc(-100% - 10px)!important;
         position: fixed!important;
-        top: 50px!important;
+        top: 0;
         transition: left .6s ease-in-out .1s;
         min-width: 320px!important;
         /*max-width: 372px;*/
