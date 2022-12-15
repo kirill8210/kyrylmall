@@ -40,30 +40,26 @@ const createSelectBrands = (brand) =>{
 };
 
 const createSelectSizes = (size) =>{
-    const list = document.createElement('div');
-    list.classList.add('block_label_sizes');
+    const list = document.createElement('label');
+    list.classList.add('filters_list_item');
 
     list.insertAdjacentHTML('afterbegin', ` 
-        <label class="filters_list_item">
-            <p>${size}</p>
-            <input type="checkbox" value="${size}" name="size">
-            <span></span>
-        </label>     
+        <p>${size}</p>
+        <input type="checkbox" value="${size}" name="size">
+        <span></span>          
     `);
 
     return list;
 };
 
 const createSelectColors = (color) =>{
-    const list = document.createElement('div');
-    list.classList.add('block_label_colors');
+    const list = document.createElement('label');
+    list.classList.add('filters_list_item');
 
     list.insertAdjacentHTML('afterbegin', ` 
-        <label class="filters_list_item">
-            <p><span class="color_${color}"></span>${color}</p>
+        <p><span class="color_${color}"></span>${color}</p>
             <input type="checkbox" value="${color}" name="color">
-            <span></span>
-        </label>    
+        <span></span>
     `);
 
     return list;
@@ -180,7 +176,7 @@ const filingCards = () => {
     allItems.append(...cards);
 }
 
-const filteringProducts = (allProducts) => {
+const filteringProducts = () => {
     const products = [...allProducts];
     const filtersProducts = products
         .filter( product => getCheckedBrand().includes(product.brand))
@@ -244,11 +240,11 @@ const filingSelectsBrands = () => {
 //checked select
 const btnReset = document.querySelectorAll('.btn_delete');
 const btnApply = document.querySelectorAll('.btn_apply');
-const filterCheck = document.querySelectorAll('.filters_list input');
+const filterCheck = document.querySelectorAll('input');
 const openFilters = document.querySelector('.filter_xs');
 const filterBlock = document.querySelector('.filter_block');
 const closeFilters = document.querySelector('.close_filters');
-const filterXs = document.querySelector('.filters_apply_xs');
+//const filterXs = document.querySelector('.filters_apply_xs');
 
 function getCheckedBrand() {
     const checkedBrands = document.querySelectorAll('#filterBrand input[type="checkbox"]')
@@ -285,46 +281,6 @@ function getCheckedColor() {
         return colorsOfSite();
     }
 }
-
-btnApply.forEach(filter =>
-    filter.addEventListener('click', (e) => {
-        e.preventDefault();
-
-        filteringProducts(allProducts);
-        if (document.documentElement.clientWidth > 992) {
-            filter.closest('.filters_active').classList.remove('filters_active');
-        } else {
-            filterBlock.style.display = 'none';
-            filter.closest('.open').classList.remove('open');
-        }
-    })
-);
-
-function removeFilterCheck() {
-    for(let i = 0; i < filterCheck.length; i++){
-        if(filterCheck[i].type === 'checkbox'){
-            filterCheck[i].checked = false;
-        }
-    }
-    return filterCheck;
-}
-
-btnReset.forEach(filter =>
-    filter.addEventListener('click', () => {
-        removeFilterCheck();
-
-        allItems.textContent = '';
-        titleOfFilters.textContent = 'All t-shirts';
-        orderBy.value = '1';
-        filingCards();
-        if (document.documentElement.clientWidth > 992) {
-            filter.closest('.filters_active').classList.remove('filters_active');
-        } else {
-            filterBlock.style.display = 'none';
-            filter.closest('.open').classList.remove('open');
-        }
-    })
-);
 
 const orderBy = document.querySelector('#order_by');
 const sortBlock = document.querySelector('.filter_sort .filters_item');
@@ -388,6 +344,48 @@ openFilters.addEventListener('click', () => {
 closeFilters.addEventListener('click', () => {
     filterBlock.style.display = 'none';
 });
+
+btnApply.forEach(filter =>
+    filter.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        filteringProducts();
+        if (document.documentElement.clientWidth > 992) {
+            filter.closest('.filters_active').classList.remove('filters_active');
+        } else {
+            filterBlock.style.display = 'none';
+            filter.closest('.open').classList.remove('open');
+        }
+    })
+);
+
+function removeFilterCheck() {
+    for(let i = 0; i < filterCheck.length; i++){
+        if(filterCheck[i].type === 'checkbox'){
+            filterCheck[i].checked = false;
+        }
+    }
+    return filterCheck;
+}
+
+btnReset.forEach(filter =>
+    filter.addEventListener('click', () => {
+        //removeFilterCheck();
+        allItems.textContent = '';
+        titleOfFilters.textContent = 'All t-shirts';
+        sortTitleLabel.textContent = 'Сортування';
+        orderBy.value = 'date';
+        filingCards();
+        if (document.documentElement.clientWidth > 992) {
+            filter.closest('.filters_active').classList.remove('filters_active');
+        } else {
+            filterBlock.style.display = 'none';
+            filter.closest('.open').classList.remove('open');
+        }
+    })
+);
+
+
 
 const init = async () => {
     allProducts = await getProducts();
