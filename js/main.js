@@ -1,9 +1,10 @@
 import getProducts from "./getProducts.js";
 import declinationOfNumber from "./declinationOfNumber.js";
+import sortedSizes from "./sortedSizes.js";
 
 let allProducts = [];
 const allItems = document.querySelector('.all_item');
-const labelBrands = document.querySelector('.filters_list');
+const labelBrands = document.querySelector('.block_label_brands');
 const labelSizes = document.querySelector('.block_label_sizes');
 const labelColors = document.querySelector('.block_label_colors');
 const titleOfFilters = document.querySelector('.title h2');
@@ -65,7 +66,7 @@ const createSelectColors = (color) =>{
     return list;
 };
 
-//select
+// active one select
 const filters = document.querySelectorAll('.filters');
 for (const filter of filters) {
     const filterItems = filter.querySelectorAll('.filters_item');
@@ -191,22 +192,6 @@ const filteringProducts = () => {
         titleOfFilters.textContent = `Знайдено ${declinationOfNumber( nums,['модель', 'моделі', 'моделей'])} "${getCheckedBrand()}":`;
 };
 
-const sortedSizes = (size) => {
-    const sizeCharts = {
-        'XS': 1,
-        'S': 2,
-        'M': 3,
-        'L': 4,
-        'XL': 5
-    };
-
-    const sortedArray = size.sort((a, b) => {
-        return sizeCharts[a] - sizeCharts[b]
-    });
-
-    return sortedArray;
-}
-
 const brandsOfSite = () => {
     const products = [...allProducts];
     return [...new Set(products.map(i => i.brand))].sort();
@@ -227,12 +212,15 @@ const colorsOfSite = () => {
 }
 
 const filingSelectsBrands = () => {
+    labelBrands.textContent = '';
     const selectBrands = brandsOfSite().map(createSelectBrands);
     labelBrands.append(...selectBrands);
 
+    labelSizes.textContent = '';
     const selectSizes = sizesOfSite().map(createSelectSizes);
     labelSizes.append(...selectSizes);
 
+    labelColors.textContent = '';
     const selectColors = colorsOfSite().map(createSelectColors);
     labelColors.append(...selectColors);
 }
@@ -240,11 +228,9 @@ const filingSelectsBrands = () => {
 //checked select
 const btnReset = document.querySelectorAll('.btn_delete');
 const btnApply = document.querySelectorAll('.btn_apply');
-const filterCheck = document.querySelectorAll('input');
 const openFilters = document.querySelector('.filter_xs');
 const filterBlock = document.querySelector('.filter_block');
 const closeFilters = document.querySelector('.close_filters');
-//const filterXs = document.querySelector('.filters_apply_xs');
 
 function getCheckedBrand() {
     const checkedBrands = document.querySelectorAll('#filterBrand input[type="checkbox"]')
@@ -283,10 +269,9 @@ function getCheckedColor() {
 }
 
 const orderBy = document.querySelector('#order_by');
-const sortBlock = document.querySelector('.filter_sort .filters_item');
+const sortBlock = document.querySelector('.filters_item_sort');
 const sortTitleLabel = document.querySelector('.filters_label_sort');
 const sortList = document.querySelector('.filters_list_sort');
-const sortLabelMobile = document.querySelector('.filters_label_xs');
 
 const sortProducts = () => {
     switch (orderBy.value) {
@@ -296,8 +281,11 @@ const sortProducts = () => {
         case 'down':
             return allProducts.sort((a, b) => b.price > a.price ? 1 : -1);
             break;
+        case 'new':
+            return allProducts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            break;
         default:
-            return allProducts;
+            return getProducts();
     }
 }
 
@@ -307,10 +295,8 @@ sortList.addEventListener('click', (e) => {
     if (target.classList.contains('filters_list_item_sort')){
         sortTitleLabel.textContent = target.textContent;
         orderBy.value = target.dataset.sort;
-        sortLabelMobile.textContent = target.textContent;
 
         allItems.textContent = '';
-        sortProducts();
         filteringProducts(sortProducts());
 
         sortBlock.classList.remove('filters_active');
@@ -323,6 +309,16 @@ sortList.addEventListener('click', (e) => {
         }
     }
 });
+
+const defaultSortProducts = () => {
+    sortTitleLabel.textContent = 'Сортування';
+    orderBy.value = 'default';
+    for (const el of sortList.querySelectorAll('.filters_list_item_sort')){
+        if (el.classList.contains('option__item_active')){
+            el.classList.remove('option__item_active');
+        }
+    }
+}
 
 const menu1 = document.querySelectorAll('.filters_label');
 const MenuClose1 = document.querySelectorAll('.block');
@@ -338,7 +334,6 @@ for (let i = 0; i < menu1.length; i++) {
 
 openFilters.addEventListener('click', () => {
     filterBlock.style.display = 'flex';
-
 });
 
 closeFilters.addEventListener('click', () => {
@@ -349,7 +344,7 @@ btnApply.forEach(filter =>
     filter.addEventListener('click', (e) => {
         e.preventDefault();
 
-        filteringProducts();
+        filteringProducts(sortProducts());
         if (document.documentElement.clientWidth > 992) {
             filter.closest('.filters_active').classList.remove('filters_active');
         } else {
@@ -358,24 +353,14 @@ btnApply.forEach(filter =>
         }
     })
 );
-
-function removeFilterCheck() {
-    for(let i = 0; i < filterCheck.length; i++){
-        if(filterCheck[i].type === 'checkbox'){
-            filterCheck[i].checked = false;
-        }
-    }
-    return filterCheck;
-}
 
 btnReset.forEach(filter =>
     filter.addEventListener('click', () => {
-        //removeFilterCheck();
-        allItems.textContent = '';
+
         titleOfFilters.textContent = 'All t-shirts';
-        sortTitleLabel.textContent = 'Сортування';
-        orderBy.value = 'date';
-        filingCards();
+        defaultSortProducts();
+        init();
+
         if (document.documentElement.clientWidth > 992) {
             filter.closest('.filters_active').classList.remove('filters_active');
         } else {
@@ -384,8 +369,6 @@ btnReset.forEach(filter =>
         }
     })
 );
-
-
 
 const init = async () => {
     allProducts = await getProducts();

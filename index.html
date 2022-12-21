@@ -65,8 +65,7 @@
     <div class="title">
         <div class="container">
             <div class="filter_xs">filters</div>
-            <div class="filter_block">
-                <form class="filters" id="filters">
+                <form class="filters filter_block" id="filters">
                     <div class="close_filters">
                         <a href="#"><i class="i_left"></i>Filters</a>
                     </div>
@@ -75,6 +74,7 @@
                         <div class="filters_label">Бренд</div>
                         <div class="filters_list_block">
                             <div class="filters_list" id="filterBrand">
+
                                 <div class="block">
                                     <a href="#"><i class="i_left"></i>brand</a>
                                 </div>
@@ -116,12 +116,10 @@
                             </div>
                         </div>
                     </div>
-                </form>
-                <div class="filters filter_sort">
-                    <div class="filters_item">
+                    <div class="filters_item filters_item_sort">
                         <div class="filters_label filters_label_sort">Сортування</div>
                         <div class="filters_list_block">
-                            <input type="hidden" id="order_by" name="order_by" value="date">
+                            <input type="hidden" id="order_by" name="order_by" value="default">
                             <div class="filters_list filters_list_sort" id="filterSort">
                                 <div class="block">
                                     <a href="#"><i class="i_left"></i><span class="filters_label_xs">sort</span></a>
@@ -132,9 +130,9 @@
                                 <label class="filters_list_item filters_list_item_sort" data-sort="down">
                                     Ціна найбільша
                                 </label>
-<!--                                <label class="filters_list_item filters_list_item_sort" data-sort="date">-->
-<!--                                    Новинки-->
-<!--                                </label>-->
+                                <label class="filters_list_item filters_list_item_sort" data-sort="new">
+                                    Новинки
+                                </label>
                             </div>
                             <div class="filters_apply_xs">
                                 <button class="btn_delete" type="reset">Reset</button>
@@ -142,8 +140,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </form>
             <h2 class="brand_result">All t-shirts</h2>
         </div>
     </div>
